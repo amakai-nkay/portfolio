@@ -5,7 +5,7 @@ export const site = {
   location: "Northampton, UK",
   email: "amakaikpeazu@gmail.com",
   linkedin: "https://www.linkedin.com/in/amakaikpeazu/",
-  cvUrl: "/cv.pdf",         // the file public/cv.pdf
+  cvUrl: "",               // left empty: CVs are tailored per role, so no download
   photoUrl: "/photo.jpg",   // the file public/photo.jpg
   demoVideoUrl: "",         // put demo.mp4 in /public and set "/demo.mp4"
   demoPosterUrl: "",

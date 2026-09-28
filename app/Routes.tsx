@@ -14,13 +14,13 @@ const ROUTES: Record<string, { label: string; steps: Step[] }> = {
     { href: "/kova", title: "See the health model working", text: "Five scored areas, each with its reason, and a suggested next step for the CSM.", live: true },
     { href: "/kova", title: "Get an at-risk alert in your inbox", text: "Let the account slip and Kova emails you a summary of what changed.", live: true },
     { href: "/kova", title: "Draft a QBR from live data", text: "One click turns the account's history into a review outline.", live: true },
-    { href: "/#work", title: "Onboarding and success plan", text: "How I'd take Brightline Logistics from signature to renewal.", live: false },
+    { href: "/#work", title: "Implementation and success plan", text: "How I'd take a new Kova customer from signature to renewal.", live: false },
   ]},
-  pmm: { label: "Product marketing", steps: [
-    { href: "/#work", title: "Positioning and ICP", text: "Who Kova is for, who it isn't for, and why.", live: false },
-    { href: "/#work", title: "Messaging and competitive battlecard", text: "How Kova wins against the established customer success platforms.", live: false },
-    { href: "/#work", title: "Pricing and launch plan", text: "The reasoning behind each decision, not just the outcome.", live: false },
-    { href: "/kova", title: "The product it's all based on", text: "Try it, so the marketing has something real behind it.", live: true },
+  enablement: { label: "Sales enablement", steps: [
+    { href: "/#kova", title: "Kova's positioning", text: "Who it's for, the problem it solves and why it wins, in one place.", live: true },
+    { href: "/#work", title: "Enablement kit for Kova's sales team", text: "Battlecard, objection handling and a demo playbook a new rep could run with.", live: false },
+    { href: "/#demo", title: "The demo, recorded", text: "What good looks like, for a rep to learn from.", live: false },
+    { href: "/kova", title: "The product it's all based on", text: "A working sandbox, so the enablement has something real behind it.", live: true },
   ]},
   tech: { label: "Something technical", steps: [
     { href: "/kova/docs", title: "API reference", text: "Authentication, endpoints, errors and rate limits.", live: true },

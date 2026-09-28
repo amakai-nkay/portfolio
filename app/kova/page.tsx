@@ -75,8 +75,11 @@ function Start({ onCreated }: { onCreated: (k: string) => void }) {
         <div className="kova-mark"><i />Kova</div>
         <h1>See which customers need you before renewal does.</h1>
         <p className="lede">
-          Kova scores the health of every account from what customers actually do, explains the score, and alerts
-          the CSM the moment an account slips. You&apos;ll get a sandbox with one customer, Brightline Logistics,
+          Kova is a customer health platform for B2B SaaS teams. It scores every account from what customers
+          actually do, explains the score, and alerts the customer success manager the moment an account slips.
+        </p>
+        <p className="lede">
+          In this sandbox you&apos;re the CSM. Your customer is Brightline Logistics, a freight company with 50 seats
           and 30 days of history. It&apos;s yours to break.
         </p>
         <ol className="steps">
