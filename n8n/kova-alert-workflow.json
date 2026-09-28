@@ -1,0 +1,50 @@
+{
+  "name": "Kova: account health alert",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kova-alert",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b1f1c7a0-0001-4a00-9000-000000000001",
+      "name": "Kova alert received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "kova-alert"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.to }}",
+        "subject": "={{ $json.body.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body.body }}\n\nHealth score: {{ $json.body.score_from }} → {{ $json.body.score_to }}\n\n— Kova, a demo product in Amaka Ikpeazu's portfolio",
+        "options": { "appendAttribution": false }
+      },
+      "id": "b1f1c7a0-0002-4a00-9000-000000000002",
+      "name": "Email the CSM",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true } }}",
+        "options": {}
+      },
+      "id": "b1f1c7a0-0003-4a00-9000-000000000003",
+      "name": "Reply to Kova",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Kova alert received": { "main": [[{ "node": "Email the CSM", "type": "main", "index": 0 }]] },
+    "Email the CSM": { "main": [[{ "node": "Reply to Kova", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
