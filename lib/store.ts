@@ -22,8 +22,9 @@ export interface Store {
 
 // ---------- Supabase (Postgres via its REST API) ----------
 function supabaseStore(url: string, key: string): Store {
-  const base = url.replace(/\/$/, "") + "/rest/v1";
-  const headers = { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+  const base = url.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "") + "/rest/v1";
+  const k = key.trim();
+  const headers = { apikey: k, Authorization: `Bearer ${k}`, "Content-Type": "application/json" };
   const call = async (path: string, init: RequestInit = {}) => {
     const res = await fetch(base + path, { ...init, headers: { ...headers, ...(init.headers || {}) }, cache: "no-store" });
     if (!res.ok) throw new Error(`Database error ${res.status}: ${await res.text()}`);

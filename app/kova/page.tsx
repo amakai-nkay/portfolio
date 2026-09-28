@@ -119,7 +119,9 @@ function Dashboard({ apiKey, onReset }: { apiKey: string; onReset: () => void })
   const [fresh, setFresh] = useState<Set<string>>(new Set());
   const origin = typeof window !== "undefined" ? window.location.origin : "";
 
+  const hasView = useRef(false);
   const take = useCallback((nv: View) => {
+    hasView.current = true;
     const incoming = nv.events.map(e => e.id).filter(id => seen.current.size && !seen.current.has(id));
     nv.events.forEach(e => seen.current.add(e.id));
     if (incoming.length) setFresh(new Set(incoming));
@@ -131,9 +133,12 @@ function Dashboard({ apiKey, onReset }: { apiKey: string; onReset: () => void })
       const res = await fetch("/api/v1/account", { headers: { Authorization: `Bearer ${apiKey}` }, cache: "no-store" });
       const j = await res.json();
       if (res.status === 401 || res.status === 410) { setErr(j.error?.message || "Sandbox not found"); return; }
-      if (!res.ok) throw new Error(j.error?.message);
+      if (!res.ok) throw new Error(j.error?.message || `Server error ${res.status}`);
       setErr(""); take(j);
-    } catch { /* keep last good view */ }
+    } catch (e) {
+      // Keep showing the last good view if we have one; otherwise say what went wrong.
+      if (!hasView.current) setErr(`Kova couldn't load this sandbox. ${(e as Error).message || ""}`.trim());
+    }
   }, [apiKey, take]);
 
   useEffect(() => {
