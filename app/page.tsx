@@ -116,10 +116,10 @@ export default function Home() {
           <ul className="worklist">
             <li><Link href="/kova"><span className="status live">Live</span><h3>Kova sandbox</h3><p>Health scoring, alerts, integration log and QBR drafts.</p></Link></li>
             <li><Link href="/kova/docs"><span className="status live">Live</span><h3>API reference</h3><p>Endpoints, auth, errors and copy-paste requests.</p></Link></li>
-            <li><span className="status soon">Coming soon</span><h3>Discovery and demo plan</h3><p>The MEDDIC-based discovery behind the demo video.</p></li>
-            <li><span className="status soon">Coming soon</span><h3>Implementation and success plan</h3><p>How I&apos;d take a new Kova customer from signature to renewal.</p></li>
-            <li><span className="status soon">Coming soon</span><h3>Sales enablement kit</h3><p>Positioning, competitive battlecard, objection handling and a demo playbook for Kova&apos;s sales team.</p></li>
-            <li><span className="status soon">Coming soon</span><h3>Architecture</h3><p>How Kova, the AI model, the Make workflow and Gmail fit together.</p></li>
+            <li><span className="status soon">Coming soon</span><h3>Demo video</h3><p>A recorded walkthrough of Kova for a Head of Customer Success.</p></li>
+            <li><Link href="/success-plan"><span className="status live">Live</span><h3>Implementation and success plan</h3><p>Taking a new Kova customer from signature to renewal, starting from the MEDDPICC handover.</p></Link></li>
+            <li><Link href="/enablement"><span className="status live">Live</span><h3>Sales enablement kit</h3><p>Positioning, MEDDPICC qualification, battlecard, objection handling, pricing and a demo playbook.</p></Link></li>
+            <li><Link href="/architecture"><span className="status live">Live</span><h3>Architecture</h3><p>How Kova, the database, the API, Make and Gmail fit together, and the decisions behind it.</p></Link></li>
           </ul>
         </div>
       </section>

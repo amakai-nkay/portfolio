@@ -317,3 +317,53 @@ p{margin:0 0 1em}
 .explorer,.explorer > *,.ex-res{min-width:0}
 .ex-out{white-space:pre-wrap;overflow-wrap:anywhere}
 .ex-body{max-width:100%}
+
+/* case study pages */
+.cs{padding:48px 0 80px}
+.cs-head{max-width:760px;margin-bottom:36px}
+.cs-kicker{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);margin-bottom:14px}
+.cs-kicker a{color:var(--muted)}
+.cs h1{font-size:clamp(34px,4.6vw,52px);margin-bottom:16px}
+.cs-lede{font-size:18px;color:#30343a;max-width:64ch}
+.cs-toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.cs-toc a{font-size:14px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;color:var(--ink);text-decoration:none}
+.cs-toc a:hover{border-color:#B9BEC6}
+.cs section{margin-top:52px;max-width:960px}
+.cs h2{font-size:28px;margin-bottom:10px}
+.cs h3{font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:0;margin:22px 0 6px}
+.cs p,.cs li{max-width:72ch}
+.cs ul,.cs ol{padding-left:20px}
+.cs li{margin-bottom:6px}
+.cs .tbl{overflow-x:auto;margin:14px 0}
+.cs table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cs th{text-align:left;font-weight:600;font-size:13px;color:var(--muted);background:var(--bg);padding:10px 14px;border-bottom:1px solid var(--line)}
+.cs td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.cs tr:last-child td{border-bottom:0}
+.cs td:first-child{font-weight:600;white-space:nowrap}
+.cs td code,.cs p code,.cs li code{font-family:var(--mono);font-size:13px;background:var(--sunk);padding:1px 5px;border-radius:4px}
+.why{background:var(--accent-soft);border-radius:12px;padding:16px 18px;margin:16px 0;max-width:72ch}
+.why b{display:block;font-size:13px;color:var(--accent);margin-bottom:4px}
+.why p{margin:0}
+.why p + p{margin-top:8px}
+.cards2{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.cards2 > div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.cards2 h3{margin-top:0}
+.cards2 p{font-size:15px;color:#30343a;margin:0 0 8px}
+.cards2 ul{font-size:14.5px;color:var(--muted);margin:0}
+.statement{font-family:var(--display);font-size:clamp(20px,2.4vw,26px);line-height:1.35;letter-spacing:-.01em;border-left:3px solid var(--accent);padding:4px 0 4px 18px;max-width:40ch;margin:16px 0}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;overflow-x:auto;margin:16px 0}
+.diagram svg{display:block;min-width:760px;width:100%;height:auto}
+.phases{list-style:none;padding:0!important;margin:16px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.phases li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0}
+.phases .when{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.phases h3{margin:4px 0 6px}
+.phases p{font-size:14.5px;color:#30343a;margin:0 0 6px}
+.phases .gate{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px;margin-top:8px}
+.cs-foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.fine{font-size:13.5px;color:var(--muted)}
+
+.lede-quote{font-family:var(--display);font-size:21px;line-height:1.4;letter-spacing:-.01em;border-left:3px solid var(--accent);padding-left:18px;margin:8px 0 18px;max-width:62ch}
+.docs ol li,.docs ul li{margin-bottom:6px}
+
+.docs > div{min-width:0}
+.docs code{overflow-wrap:anywhere}
