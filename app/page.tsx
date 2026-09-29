@@ -117,6 +117,7 @@ export default function Home() {
             <li><Link href="/kova"><span className="status live">Live</span><h3>Kova sandbox</h3><p>Health scoring, alerts, integration log and QBR drafts.</p></Link></li>
             <li><Link href="/kova/docs"><span className="status live">Live</span><h3>API reference</h3><p>Endpoints, auth, errors and copy-paste requests.</p></Link></li>
             <li><span className="status soon">Coming soon</span><h3>Demo video</h3><p>A recorded walkthrough of Kova for a Head of Customer Success.</p></li>
+            <li><Link href="/before-after"><span className="status live">Live</span><h3>From symptom to impact</h3><p>My L1, L2, L3 discovery method, and Haulio&apos;s workflow before and after Kova with the bottlenecks marked.</p></Link></li>
             <li><Link href="/success-plan"><span className="status live">Live</span><h3>Implementation and success plan</h3><p>Taking a new Kova customer from signature to renewal, starting from the MEDDPICC handover.</p></Link></li>
             <li><Link href="/enablement"><span className="status live">Live</span><h3>Sales enablement kit</h3><p>Positioning, MEDDPICC qualification, battlecard, objection handling, pricing and a demo playbook.</p></Link></li>
             <li><Link href="/architecture"><span className="status live">Live</span><h3>Architecture</h3><p>How Kova, the database, the API, Make and Gmail fit together, and the decisions behind it.</p></Link></li>

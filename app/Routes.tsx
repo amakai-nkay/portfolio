@@ -8,12 +8,14 @@ const ROUTES: Record<string, { label: string; steps: Step[] }> = {
     { href: "/#demo", title: "Watch me demo Kova", text: "A recorded walkthrough, built around a discovery call with a fictional prospect.", live: false },
     { href: "/kova", title: "Use the product yourself", text: "Spin up a sandbox, change the account and watch the health score respond.", live: true },
     { href: "/kova/docs", title: "Call the API", text: "Send a real request with your own key and see it land in the dashboard.", live: true },
+    { href: "/before-after", title: "How I run discovery", text: "From the symptom to the root cause to the business impact, with the workflow before and after.", live: true },
     { href: "/enablement#meddpicc", title: "How I qualify and run a demo", text: "MEDDPICC questions, what good looks like, and the demo playbook.", live: true },
   ]},
   cs: { label: "Customer success", steps: [
     { href: "/kova", title: "See the health model working", text: "Five scored areas, each with its reason, and a suggested next step for the CSM.", live: true },
     { href: "/kova", title: "Get an at-risk alert in your inbox", text: "Let the account slip and Kova emails you a summary of what changed.", live: true },
     { href: "/kova", title: "Draft a QBR from live data", text: "One click turns the account's history into a review outline.", live: true },
+    { href: "/before-after", title: "Current state to future state", text: "Haulio's workflow before and after Kova, with the bottlenecks marked.", live: true },
     { href: "/success-plan", title: "Implementation and success plan", text: "From the MEDDPICC handover to a 90-day review with the CRO.", live: true },
   ]},
   enablement: { label: "Sales enablement", steps: [

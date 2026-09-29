@@ -10,6 +10,7 @@ export default function Enablement() {
         <a href="#icp">Who we sell to</a>
         <a href="#personas">Buyers</a>
         <a href="#messaging">Messaging</a>
+        <a href="#discovery">Discovery: L1 to L3</a>
         <a href="#meddpicc">Qualifying with MEDDPICC</a>
         <a href="#battlecard">Battlecard</a>
         <a href="#objections">Objection handling</a>
@@ -69,6 +70,25 @@ export default function Enablement() {
           </tbody>
         </table></div>
 
+        <h2 id="discovery">Discovery: L1 to L3</h2>
+        <p>
+          Customers open with a symptom. Work through three levels before qualifying or demoing, and use Five Whys to
+          get from the first to the second. <Link href="/before-after">See it applied to Haulio</Link>, with the
+          workflow before and after Kova.
+        </p>
+        <div className="table-scroll"><table>
+          <thead><tr><th>Level</th><th>What you&apos;re after</th><th>Questions that get there</th><th>Usually from</th></tr></thead>
+          <tbody>
+            <tr><td><b>L1 · Symptom</b></td><td>The pain in the customer&apos;s own words, and what triggered the call now</td><td>What made you look at this now? What happened last time it went wrong? Talk me through a recent example.</td><td>A CSM or the Head of CS</td></tr>
+            <tr><td><b>L2 · Root cause</b></td><td>The process, tools or hand-offs causing it. This is what Kova has to fix</td><td>Walk me through how you review accounts today, step by step. Where does the data come from? Who does it, how often, and how long does it take? What gets skipped when the team is busy?</td><td>The Head of CS, CSMs, RevOps</td></tr>
+            <tr><td><b>L3 · Business impact</b></td><td>What it costs, in numbers the business already tracks</td><td>What did those lost renewals cost? What&apos;s the retention target, and who owns it? What happens if nothing changes this year?</td><td>The CRO or COO</td></tr>
+          </tbody>
+        </table></div>
+        <p>
+          L1 gives you the story, L2 gives you the decision criteria, and L3 gives you the metrics and the economic
+          buyer. A deal with only L1 is interest, not an opportunity.
+        </p>
+
         <h2 id="meddpicc">Qualifying with MEDDPICC</h2>
         <p>What to find out, questions that get there, and what a qualified Kova deal looks like at each point.</p>
         <div className="table-scroll"><table>
@@ -127,7 +147,7 @@ export default function Enablement() {
         <h2 id="demo">Demo playbook</h2>
         <p>Run discovery first, then shape the demo around what you heard. The standard flow, about 20 minutes live:</p>
         <ol>
-          <li><b>Recap what you heard</b> (2 min): their metric, their pain, their criteria. Get a nod before you share your screen.</li>
+          <li><b>Play back L1, L2 and L3</b> (2 min): their symptom, the cause underneath it, and what it costs them. Get a nod before you share your screen.</li>
           <li><b>Start from their pain, not the menu</b> (5 min): open an account, play &ldquo;Customer at risk&rdquo;, show the score move, the reasons and the next step.</li>
           <li><b>Make it real</b> (3 min): let the alert email land in their own inbox. Ask for an email address at the start of the call.</li>
           <li><b>Answer the technical question before it&apos;s asked</b> (5 min): send an event through the API Explorer and show the integration log. For RevOps, show the docs and the error handling.</li>
