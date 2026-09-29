@@ -137,7 +137,7 @@ export default function Home() {
             <p className="intro">
               I&apos;ve worked across enterprise CMS, cloud hosting, connected vehicle data, network security, AI and
               RegTech, so I pick up new domains quickly and can talk to engineers, operations teams and executives
-              in their own terms. I&apos;ve also worked in the UAE, and I know the MENA market as well as Europe.
+              in their own terms. I&apos;ve worked with customers across EMEA and the Americas, and spent two years living and working in the UAE.
             </p>
             <div className="ctas" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {site.email ? <a className="btn" href={`mailto:${site.email}`}>Email me</a> : null}
@@ -147,7 +147,7 @@ export default function Home() {
           <dl className="facts">
             <div><dt>Experience</dt><dd>7+ years in solutions engineering, pre-sales and implementation</dd></div>
             <div><dt>Focus</dt><dd>Solutions engineering, implementation, customer success and sales enablement</dd></div>
-            <div><dt>Regions</dt><dd>UK, Europe and MENA</dd></div>
+            <div><dt>Regions</dt><dd>EMEA and the Americas, including MENA</dd></div>
             <div><dt>Certifications</dt><dd>Azure AI Fundamentals, Azure Fundamentals, MEDDIC, HubSpot Sales Enablement, Lean Six Sigma Yellow Belt</dd></div>
             <div><dt>Education</dt><dd>BEng, Southampton Solent University</dd></div>
             <div><dt>Languages</dt><dd>English, Igbo, conversational French</dd></div>
