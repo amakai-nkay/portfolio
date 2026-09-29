@@ -166,5 +166,6 @@ export function nextAction(s: AccountState): string {
   if (s.features.length < 4) return "Adoption is narrow. Show them one feature that fits a goal they've already told you about.";
   if (!s.sponsor) return "Re-engage an exec sponsor before renewal. Share a one-page value summary they can forward.";
   if (s.nps != null && s.nps < 7) return "Follow up on the low NPS score. Ask what would make it a 9 and log the answer.";
+  if (s.seats && s.activeUsers / s.seats >= 0.85) return `Expansion opportunity: ${s.activeUsers} of ${s.seats} seats are in use. Open a conversation about more seats before renewal, and ask for a case study while things are going well.`;
   return "Account is in good shape. Use the momentum: ask for a case study or a referral.";
 }

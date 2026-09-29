@@ -18,6 +18,7 @@ export interface Store {
   updateMeta(id: string, meta: Sandbox["meta"]): Promise<void>;
   addEvents(events: KovaEvent[]): Promise<void>;
   listEvents(sandboxId: string): Promise<KovaEvent[]>;
+  deleteEvents(sandboxId: string): Promise<void>;
 }
 
 // ---------- Supabase (Postgres via its REST API) ----------
@@ -50,6 +51,9 @@ function supabaseStore(url: string, key: string): Store {
       const res = await call(`/events?sandbox_id=eq.${sandboxId}&select=*&order=created_at.asc,id.asc&limit=2000`);
       return (await res.json()) as KovaEvent[];
     },
+    async deleteEvents(sandboxId) {
+      await call(`/events?sandbox_id=eq.${sandboxId}`, { method: "DELETE", headers: { Prefer: "return=minimal" } });
+    },
   };
 }
 
@@ -69,6 +73,7 @@ const memoryStore: Store = {
   async listEvents(id) {
     return mem.events.filter(e => e.sandbox_id === id).sort((a, b) => a.created_at.localeCompare(b.created_at));
   },
+  async deleteEvents(id) { mem.events = mem.events.filter(e => e.sandbox_id !== id); },
 };
 
 export function getStore(): Store {

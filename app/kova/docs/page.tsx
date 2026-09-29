@@ -15,6 +15,7 @@ export default function Docs() {
         <a href="#types">Event types</a>
         <a href="#list">List events</a>
         <a href="#qbr">Draft a QBR</a>
+        <a href="#reset">Reset the sandbox</a>
         <a href="#errors">Errors and limits</a>
         <a href="#scoring">How scoring works</a>
       </aside>
@@ -95,6 +96,9 @@ export default function Docs() {
         <p>Drafts a quarterly business review outline from the account&apos;s data. If an AI model is connected it writes the draft; otherwise Kova uses its own template. The response says which.</p>
         <Code>{`{ "generated_by": "ai", "draft": "Quarterly business review: Brightline Logistics\\n\\nWhere things stand\\n- ..." }`}</Code>
 
+        <h2 id="reset"><span className="method">POST</span>/api/v1/reset</h2>
+        <p>Puts the sandbox back to its starting point: the original 30 days of history, no alerts and an empty integration log. The key and alert email stay the same.</p>
+
         <h2 id="errors">Errors and limits</h2>
         <p>Errors come back with an HTTP status and a JSON body you can show to a user or act on in code.</p>
         <Code>{`{ "error": { "code": "unknown_event_type", "message": "type must be one of: usage.weekly, ..." } }`}</Code>
@@ -106,7 +110,7 @@ export default function Docs() {
             <tr><td>410</td><td><code>sandbox_expired</code></td><td>The sandbox is more than 7 days old</td></tr>
             <tr><td>413</td><td><code>payload_too_large</code></td><td><code>data</code> is over 2KB</td></tr>
             <tr><td>422</td><td><code>unknown_event_type</code></td><td>The event type isn&apos;t on the list above</td></tr>
-            <tr><td>429</td><td><code>rate_limited</code></td><td>More than 30 events, 120 reads or 4 QBR drafts a minute</td></tr>
+            <tr><td>429</td><td><code>rate_limited</code></td><td>More than 30 events, 120 reads, 4 QBR drafts or 6 resets a minute</td></tr>
           </tbody>
         </table></div>
 

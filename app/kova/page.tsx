@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Explorer from "./Explorer";
+import Scenarios, { type ViewLike } from "./Scenarios";
 
 type Component = { key: string; label: string; score: number; max: number; reason: string };
 type Ev = { id: string; type: string; data: Record<string, unknown>; source: "seed" | "ui" | "api"; created_at: string };
@@ -116,7 +118,7 @@ function Dashboard({ apiKey, onReset }: { apiKey: string; onReset: () => void })
   const [busy, setBusy] = useState(false);
   const [qbr, setQbr] = useState<{ draft: string; by: string } | null>(null);
   const [qbrBusy, setQbrBusy] = useState(false);
-  const [tab, setTab] = useState<"curl" | "js" | "python">("curl");
+  const [tab, setTab] = useState<"explorer" | "curl" | "js" | "python">("explorer");
   const [copied, setCopied] = useState("");
   const seen = useRef<Set<string>>(new Set());
   const [fresh, setFresh] = useState<Set<string>>(new Set());
@@ -150,16 +152,29 @@ function Dashboard({ apiKey, onReset }: { apiKey: string; onReset: () => void })
     return () => clearInterval(t);
   }, [load]);
 
+  const sendEvent = async (type: string, data: Record<string, unknown>) => {
+    const res = await fetch("/api/v1/events", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "content-type": "application/json", "x-kova-source": "dashboard" },
+      body: JSON.stringify({ type, data }),
+    });
+    const j = await res.json();
+    if (!res.ok) return null;
+    if (j.account) take(j.account);
+    return { previous: j.health.previous as number, score: j.health.score as number, view: j.account as View };
+  };
+
   const send = async (type: string, data: Record<string, unknown>) => {
     setBusy(true);
+    try { const r = await sendEvent(type, data); if (!r) load(); } finally { setBusy(false); }
+  };
+
+  const reset = async () => {
+    setBusy(true);
     try {
-      const res = await fetch("/api/v1/events", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}`, "content-type": "application/json", "x-kova-source": "dashboard" },
-        body: JSON.stringify({ type, data }),
-      });
+      const res = await fetch("/api/v1/reset", { method: "POST", headers: { Authorization: `Bearer ${apiKey}` } });
       const j = await res.json();
-      if (j.account) take(j.account); else load();
+      if (res.ok) { take(j.account); setQbr(null); }
     } finally { setBusy(false); }
   };
 
@@ -238,7 +253,8 @@ requests.post(
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <Link className="btn ghost small" href="/kova/docs">API docs</Link>
-          <button className="btn ghost small" onClick={onReset}>Start over</button>
+          <button className="btn ghost small" onClick={reset} disabled={busy} title="Put Brightline back to its starting point">Reset demo</button>
+          <button className="btn ghost small" onClick={onReset} title="Create a brand new sandbox with a new key">New sandbox</button>
         </div>
       </div>
 
@@ -272,8 +288,18 @@ requests.post(
             </div>
           </section>
 
+          <section className="panel" aria-labelledby="h-scen">
+            <header><h2 id="h-scen">Play a scenario</h2><span className="sub">Each one sends a few real events in a row</span></header>
+            <div className="in">
+              <Scenarios view={v as unknown as ViewLike} disabled={busy} send={async (t, d) => {
+                const r = await sendEvent(t, d);
+                return r ? { previous: r.previous, score: r.score, view: r.view as unknown as ViewLike } : null;
+              }} />
+            </div>
+          </section>
+
           <section className="panel sim" aria-labelledby="h-sim">
-            <header><h2 id="h-sim">Change what&apos;s happening at Brightline</h2><span className="sub">Each button sends a real event</span></header>
+            <header><h2 id="h-sim">Or change one thing at a time</h2><span className="sub">Each button sends one real event</span></header>
             <div className="in">
               <h3>Things that hurt</h3>
               <div className="btns hurt">{HURT.map(b => <button key={b.label} disabled={busy} onClick={() => send(b.type, b.data)}>{b.label}</button>)}</div>
@@ -283,15 +309,20 @@ requests.post(
           </section>
 
           <section className="panel" aria-labelledby="h-api">
-            <header><h2 id="h-api">Or do it with the API</h2><span className="sub">Watch this page update within 3 seconds</span></header>
+            <header><h2 id="h-api">Use the API</h2><span className="sub">Real requests to this site&apos;s API</span></header>
             <div className="in">
-              <div className="tabs" role="group" aria-label="Language">
-                {(["curl", "js", "python"] as const).map(t => <button key={t} aria-pressed={tab === t} onClick={() => setTab(t)}>{t === "js" ? "JavaScript" : t === "python" ? "Python" : "cURL"}</button>)}
+              <div className="tabs" role="group" aria-label="How to call the API">
+                {(["explorer", "curl", "js", "python"] as const).map(t => <button key={t} aria-pressed={tab === t} onClick={() => setTab(t)}>{t === "explorer" ? "Try it here" : t === "js" ? "JavaScript" : t === "python" ? "Python" : "cURL"}</button>)}
               </div>
-              <div className="code">
-                <button className="copy" onClick={() => copy(snippets[tab], "code")}>{copied === "code" ? "Copied" : "Copy"}</button>
-                {snippets[tab]}
-              </div>
+              {tab === "explorer" ? <Explorer apiKey={apiKey} origin={origin} onSent={load} /> : (
+                <>
+                  <div className="code">
+                    <button className="copy" onClick={() => copy(snippets[tab], "code")}>{copied === "code" ? "Copied" : "Copy"}</button>
+                    {snippets[tab]}
+                  </div>
+                  <p className="sub" style={{ margin: "8px 0 0" }}>Run it from your own machine and watch this page update within 3 seconds.</p>
+                </>
+              )}
               <div className="keyline">Your sandbox key: <code>{apiKey.slice(0, 16)}…</code>
                 <button className="btn ghost small" onClick={() => copy(apiKey, "key")}>{copied === "key" ? "Copied" : "Copy key"}</button>
                 <span>Expires {new Date(v.sandbox_expires).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}.</span>
