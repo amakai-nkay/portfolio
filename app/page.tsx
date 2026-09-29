@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Routes from "./Routes";
+import Skills from "./Skills";
 import { site } from "@/lib/site";
 
 export default function Home() {
@@ -9,18 +10,21 @@ export default function Home() {
         <div className="wrap hero-grid">
           <div>
             <p className="who">{site.name}. {site.role}, {site.location}.</p>
-            <h1>I get complex software bought, rolled out and actually used.</h1>
+            <h1>I help businesses understand, evaluate and successfully adopt complex software.</h1>
             <p className="lede">
-              Senior solutions engineer with 7+ years across SaaS, AI, RegTech and deep-tech startups in EMEA.
-              I&apos;ve mostly joined companies at founding or pre-scale stage, where there was no playbook yet,
-              and built the functions, tooling and processes myself.
+              I&apos;m a Senior Solutions Engineer with 7+ years of experience across SaaS, AI, RegTech, connected data
+              and manufacturing. My work sits at the intersection of technology, sales and customer success, spanning
+              technical discovery, enterprise demonstrations, solution architecture, APIs, integrations and implementation.
             </p>
             <p className="lede">
-              I work end to end: discovery and demos, API and CRM integrations, Python and JavaScript automation,
-              and LLM-powered tools with human review built in. Then I stay through rollout, training and adoption.
+              I&apos;ve also built technical sales enablement functions, automated internal processes and developed
+              reusable demos, integrations and playbooks. Much of my experience has been in early-stage and scaling
+              environments, where I&apos;ve helped establish the tools and processes needed to support technical
+              evaluations, bring products to market and drive customer adoption.
             </p>
             <div className="ctas">
               <Link className="btn accent" href="/kova">Try Kova</Link>
+              <Link className="btn ghost" href="/#demo">Watch the demo</Link>
               {site.linkedin ? <a className="btn ghost" href={site.linkedin}>LinkedIn</a> : null}
               {site.email ? <a className="btn ghost" href={`mailto:${site.email}`}>Email me</a> : null}
             </div>
@@ -30,60 +34,13 @@ export default function Home() {
             <img className="portrait" src={site.photoUrl} alt={`Photo of ${site.name}`} width={440} height={550} />
           ) : null}
         </div>
-      </section>
-
-      <section className="section" id="what-i-do">
         <div className="wrap">
-          <h2>What I do</h2>
-          <p className="intro">Five things I&apos;m hired for, and what they&apos;ve looked like in practice.</p>
-          <div className="pillars">
-            <div>
-              <h3>Technical pre-sales</h3>
-              <p>Discovery that finds the real problem, demos built around it, POCs that prove it, and the ROI case that gets it signed.</p>
-              <ul>
-                <li>Lifted enterprise conversion 15% by tying every demo to the customer&apos;s own outcomes</li>
-                <li>Closed $200k+ in enterprise revenue through consultative discovery and ROI validation</li>
-                <li>Run RFP, RFI and security questionnaire responses for regulated buyers</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Integrations and implementation</h3>
-              <p>I map how a process really runs with the people doing it, then design and deliver the future state.</p>
-              <ul>
-                <li>API integrations across Salesforce, HubSpot, Pipedrive and Google Workspace</li>
-                <li>Identity and compliance providers including Onfido, Veriff, Checkout.com and ComplyAdvantage</li>
-                <li>Implementation workshops and phased rollouts for enterprise clients</li>
-              </ul>
-            </div>
-            <div>
-              <h3>AI and automation</h3>
-              <p>Working tools, not slideware. I build day to day with Claude Code and AI coding agents.</p>
-              <ul>
-                <li>An LLM-powered RFP tool with human review that cut response time 20%</li>
-                <li>Configurable risk-scoring engines in JavaScript for regulated onboarding</li>
-                <li>RAG, structured output, tool calling and output evaluation</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Sales enablement</h3>
-              <p>Giving sales teams what they need to run technical conversations without me in the room.</p>
-              <ul>
-                <li>Built a global technical sales enablement function from scratch</li>
-                <li>Playbooks, certification paths, demo environments and competitive battlecards</li>
-                <li>Technical narratives and positioning grounded in what customers actually said</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Customer success and adoption</h3>
-              <p>A signed deal isn&apos;t the finish line. Usage is.</p>
-              <ul>
-                <li>Post-go-live enablement that got non-technical teams using what they&apos;d bought</li>
-                <li>Repeatable deployment playbooks that shortened time to value</li>
-                <li>Field feedback turned into structured requests for Product and Engineering</li>
-              </ul>
-            </div>
-          </div>
-          <p className="industries">Industries: SaaS, AI, fintech and payments, RegTech, enterprise CMS, cloud hosting, connected vehicle data and network security.</p>
+          <ul className="wins" aria-label="Selected results">
+            <li><b>$200k+</b><span>Enterprise revenue closed</span><small>Through consultative technical discovery, solution architecture and ROI validation</small></li>
+            <li><b>20%</b><span>Faster RFP and RFI responses</span><small>From an AI-powered automation tool I built in Python, with human review</small></li>
+            <li><b>22%</b><span>Increase in production output</span><small>Through Lean Six Sigma process improvement on steel and composite production lines</small></li>
+            <li><b>3 · 6 · 10</b><span>Certification tracks, demo frameworks and playbooks</span><small>Built Kinsta&apos;s global technical sales enablement function from the ground up, standardising technical sales across global teams</small></li>
+          </ul>
         </div>
       </section>
 
@@ -144,17 +101,11 @@ export default function Home() {
       <section className="section" id="skills">
         <div className="wrap">
           <h2>Skills</h2>
-          <div className="skills">
-            <div><h3>Solutions engineering</h3><p>Technical discovery, strategy workshops, POC and POV design, enterprise demos, solution architecture, ROI validation, MEDDIC</p></div>
-            <div><h3>Integrations and APIs</h3><p>REST APIs, SDKs, webhooks, OAuth, JSON, GraphQL, MCP connectors, Postman, sandbox testing, Salesforce integration</p></div>
-            <div><h3>AI engineering</h3><p>LLMs, RAG, prompt engineering, structured output, tool calling, agentic workflows, output evaluation and QA</p></div>
-            <div><h3>AI and automation tools</h3><p>Claude Code, Cursor, GitHub Copilot, Claude, ChatGPT, n8n, Make, Zapier, Replit, Lovable</p></div>
-            <div><h3>Engineering, cloud and data</h3><p>Python, JavaScript, SQL, git, CI/CD, AWS, Kubernetes, Snowflake, Databricks, Datadog, Grafana, Tableau, Power BI, Looker</p></div>
-            <div><h3>Fintech and compliance</h3><p>KYB, KYC, AML, CDD and EDD, UBO analysis, sanctions and PEP screening, risk scoring, PCI DSS, payment flows</p></div>
-            <div><h3>Security and identity</h3><p>SSO, MFA, SAML, Okta, Entra ID, sensitive data handling</p></div>
-            <div><h3>Enablement and delivery</h3><p>Playbooks, certification paths, demo environments, battlecards, implementation playbooks, user training, rollout and adoption tracking</p></div>
-            <div><h3>Business systems</h3><p>Salesforce, HubSpot, MS Dynamics, Pipedrive, Jira, Confluence, Notion, Linear, Zendesk, Intercom, Gainsight, Figma</p></div>
-          </div>
+          <p className="intro">
+            Six core capabilities first, then the full toolkit behind them. Industries I&apos;ve worked in: SaaS, AI,
+            RegTech, fintech and payments, IoT and connected-vehicle data, enterprise software and manufacturing.
+          </p>
+          <Skills />
         </div>
       </section>
 

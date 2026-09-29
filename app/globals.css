@@ -37,9 +37,9 @@ p{margin:0 0 1em}
 .btn:disabled{opacity:.5;cursor:default}
 
 /* home */
-.hero{padding:88px 0 72px}
+.hero{padding:64px 0 64px}
 .hero .who{font-size:17px;color:var(--muted);margin-bottom:22px}
-.hero h1{font-size:clamp(36px,4.8vw,62px);font-weight:700;max-width:18ch;margin-bottom:28px}
+.hero h1{font-size:clamp(34px,4.2vw,54px);font-weight:700;max-width:20ch;margin-bottom:28px}
 .hero .lede{font-size:18px;max-width:60ch;color:#30343a}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:56px;align-items:center}
@@ -235,3 +235,44 @@ p{margin:0 0 1em}
 .kova-facts dt{font-size:13px;color:var(--muted)}
 .kova-facts dd{margin:2px 0 0;font-size:15px}
 .start .lede + .lede{margin-top:0}
+
+/* achievements */
+.wins{list-style:none;margin:56px 0 0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.wins li{display:grid;gap:4px;align-content:start}
+.wins b{font-family:var(--display);font-size:30px;white-space:nowrap;font-weight:700;letter-spacing:-.03em;line-height:1.1;color:var(--accent)}
+.wins span{font-weight:600;font-size:15.5px}
+.wins small{color:var(--muted);font-size:14px;line-height:1.45}
+
+/* capability cards */
+.caps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px;align-items:stretch}
+.cap{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;display:flex;flex-direction:column;transition:border-color .15s ease, box-shadow .15s ease}
+.cap:hover{border-color:#B9BEC6;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.cap h3{font-size:20px;line-height:1.2;margin-bottom:8px;overflow-wrap:anywhere}
+.cap > p{color:#30343a;font-size:15px;margin:0 0 14px}
+.tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tags li{font-size:13px;line-height:1.3;padding:4px 9px;border-radius:7px;background:var(--sunk);color:#2B2F35}
+.cap .tags{margin-bottom:14px}
+.more{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:4px 0;color:var(--accent);font-size:14px;font-weight:500;cursor:pointer}
+.more:hover{text-decoration:underline;text-underline-offset:3px}
+.chev{transition:transform .2s ease}
+.chev.open{transform:rotate(180deg)}
+
+/* toolkit accordion */
+.toolkit{margin-top:44px}
+.toolkit-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.toolkit-head h3{font-size:22px}
+.toolkit-note{color:var(--muted);font-size:14.5px;margin:6px 0 12px}
+.linkbtn{border:0;background:none;color:var(--accent);font-size:14px;font-weight:500;cursor:pointer;padding:4px 0;white-space:nowrap}
+.linkbtn:hover{text-decoration:underline;text-underline-offset:3px}
+.acc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.acc > li{border-bottom:1px solid var(--line)}
+.acc-row{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;border:0;background:none;padding:14px 4px;text-align:left;font-size:15.5px;font-weight:500;cursor:pointer}
+.acc-row:hover{background:var(--surface)}
+.acc-count{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.acc-body{padding:2px 4px 16px}
+
+@media (max-width:980px){ .caps,.wins{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:640px){
+  .caps,.wins{grid-template-columns:1fr}
+  .wins{gap:18px;margin-top:36px}
+}
