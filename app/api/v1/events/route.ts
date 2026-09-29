@@ -1,5 +1,5 @@
 import { getStore } from "@/lib/store";
-import { authenticate, accountView, json, error, rateLimited, makeEvent, ACCOUNT } from "@/lib/account";
+import { authenticate, accountView, json, error, rateLimited, makeEvent, ACCOUNT, MAX_EMAILS_PER_SANDBOX } from "@/lib/account";
 import { EVENT_TYPES, replay, score, band, bandRank, BAND_LABEL, nextAction, type EventType } from "@/lib/health";
 import { describe } from "@/lib/describe";
 import { aiWrite, alertPrompt, alertTemplate, deliverAlert, maskEmail, type AlertContext } from "@/lib/integrations";
@@ -54,8 +54,14 @@ export async function POST(req: Request) {
     };
     const subject = `${ACCOUNT.name} is now ${ctx.bandTo.toLowerCase()} (health ${prev} → ${next})`;
     const text = (await aiWrite(alertPrompt(ctx), sandbox.meta.log, "Wrote the alert summary")) || alertTemplate(ctx);
-    const result = await deliverAlert(sandbox.alert_email, subject, text,
-      { account: ACCOUNT.name, score_from: prev, score_to: next, band: band(next) }, sandbox.meta.log);
+    // Each sandbox can send at most a few real emails, however many times it's reset.
+    const capped = !!sandbox.alert_email && (sandbox.meta.emailsSent || 0) >= MAX_EMAILS_PER_SANDBOX;
+    if (capped) sandbox.meta.log.unshift({ at: new Date().toISOString(), target: "Email", status: "skipped", ms: 0,
+      note: `This sandbox has used its ${MAX_EMAILS_PER_SANDBOX} alert emails, so this one is a preview` });
+    const result = capped ? { delivered: "preview" as const, via: undefined }
+      : await deliverAlert(sandbox.alert_email, subject, text,
+        { account: ACCOUNT.name, score_from: prev, score_to: next, band: band(next) }, sandbox.meta.log);
+    if (result.delivered === "email") sandbox.meta.emailsSent = (sandbox.meta.emailsSent || 0) + 1;
     alert = { at: new Date().toISOString(), subject, body: text, delivered: result.delivered, via: result.via,
       to: sandbox.alert_email ? maskEmail(sandbox.alert_email) : undefined };
     sandbox.meta.alerts.unshift(alert);

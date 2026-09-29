@@ -16,6 +16,8 @@ type View = {
   alerts: { at: string; subject: string; body: string; delivered: "email" | "preview"; to?: string; via?: string }[];
   integration_log: { at: string; target: string; status: "ok" | "error" | "skipped"; ms: number; note: string }[];
   alert_email_set: boolean;
+  emails_sent: number;
+  emails_limit: number;
   storage: "supabase" | "memory";
   sandbox_expires: string;
 };
@@ -342,7 +344,7 @@ requests.post(
 
         <div className="stack">
           <section className="panel" aria-labelledby="h-alerts">
-            <header><h2 id="h-alerts">Alerts</h2><span className="sub">{v.alert_email_set ? "Sent to your inbox" : "Shown here"}</span></header>
+            <header><h2 id="h-alerts">Alerts</h2><span className="sub">{v.alert_email_set ? `${v.emails_sent} of ${v.emails_limit} emails used` : "Shown here"}</span></header>
             <div className="in">
               {v.alerts.length ? v.alerts.map(a => (
                 <div className="alert" key={a.at}>
@@ -350,7 +352,7 @@ requests.post(
                   <div className="meta">{when(a.at)} · {a.delivered === "email" ? `emailed to ${a.to}${a.via ? ` via ${a.via}` : ""}` : "preview only"}</div>
                   <pre>{a.body}</pre>
                 </div>
-              )) : <p className="empty">No alerts yet. Kova sends one when the account drops from healthy to at risk, or from at risk to critical. Try &ldquo;Champion leaves&rdquo; then &ldquo;Quiet week&rdquo;.</p>}
+              )) : <p className="empty">No alerts yet. Kova sends one only when the account drops into a worse band: healthy to at risk, or at risk to critical. {v.alert_email_set ? `Up to ${v.emails_limit} of them are emailed to you; after that they show here only.` : ""} Try the &ldquo;Customer at risk&rdquo; scenario.</p>}
             </div>
           </section>
 
@@ -359,7 +361,7 @@ requests.post(
             <div className="in">
               {v.integration_log.length ? <ul className="log">{v.integration_log.map((l, i) => (
                 <li key={l.at + i}><span className={`dot ${l.status}`} aria-label={l.status} /><b>{l.target}</b><span className="ms">{l.status === "skipped" ? "skipped" : `${l.ms} ms`}</span><p>{l.note}</p></li>
-              ))}</ul> : <p className="empty">Calls to the AI model, n8n and the email service will show here with their status and timing.</p>}
+              ))}</ul> : <p className="empty">Calls to the AI model and the Make alert workflow will show here with their status and timing.</p>}
             </div>
           </section>
 

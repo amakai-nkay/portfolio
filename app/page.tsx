@@ -119,7 +119,7 @@ export default function Home() {
             <li><span className="status soon">Coming soon</span><h3>Discovery and demo plan</h3><p>The MEDDIC-based discovery behind the demo video.</p></li>
             <li><span className="status soon">Coming soon</span><h3>Implementation and success plan</h3><p>How I&apos;d take a new Kova customer from signature to renewal.</p></li>
             <li><span className="status soon">Coming soon</span><h3>Sales enablement kit</h3><p>Positioning, competitive battlecard, objection handling and a demo playbook for Kova&apos;s sales team.</p></li>
-            <li><span className="status soon">Coming soon</span><h3>Architecture</h3><p>How Kova, the AI model, n8n and email fit together.</p></li>
+            <li><span className="status soon">Coming soon</span><h3>Architecture</h3><p>How Kova, the AI model, the Make workflow and Gmail fit together.</p></li>
           </ul>
         </div>
       </section>

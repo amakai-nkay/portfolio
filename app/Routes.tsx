@@ -24,8 +24,8 @@ const ROUTES: Record<string, { label: string; steps: Step[] }> = {
   ]},
   tech: { label: "Something technical", steps: [
     { href: "/kova/docs", title: "API reference", text: "Authentication, endpoints, errors and rate limits.", live: true },
-    { href: "/kova", title: "Watch the integration log", text: "Every outbound call (AI, n8n, email) shown with its status and timing.", live: true },
-    { href: "/#work", title: "Architecture and the n8n workflow", text: "How the pieces connect, in plain English with the detail underneath.", live: false },
+    { href: "/kova", title: "Watch the integration log", text: "Every outbound call (AI model, Make workflow) shown with its status and timing.", live: true },
+    { href: "/#work", title: "Architecture and the Make workflow", text: "How the pieces connect, in plain English with the detail underneath.", live: false },
   ]},
 };
 

@@ -8,7 +8,7 @@ export type Sandbox = {
   api_key: string;
   alert_email: string | null;
   created_at: string;
-  meta: { log: LogEntry[]; alerts: Alert[]; lastAlertAt?: string };
+  meta: { log: LogEntry[]; alerts: Alert[]; lastAlertAt?: string; emailsSent?: number };
 };
 
 export interface Store {

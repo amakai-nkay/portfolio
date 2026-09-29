@@ -4,6 +4,7 @@ import { replay, score, band, BAND_LABEL, nextAction, type KovaEvent, type Event
 
 export const ACCOUNT = { name: "Brightline Logistics", plan: "Growth, 50 seats", industry: "Freight and logistics, 400 staff" };
 export const SANDBOX_DAYS = 7;
+export const MAX_EMAILS_PER_SANDBOX = 3;
 
 export function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data, null, 2), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -78,6 +79,8 @@ export async function accountView(sandbox: Sandbox, events?: KovaEvent[]) {
     alerts: sandbox.meta.alerts.slice(0, 5),
     integration_log: sandbox.meta.log.slice(0, 12),
     alert_email_set: !!sandbox.alert_email,
+    emails_sent: sandbox.meta.emailsSent || 0,
+    emails_limit: MAX_EMAILS_PER_SANDBOX,
     storage: getStore().mode,
     sandbox_expires: new Date(new Date(sandbox.created_at).getTime() + SANDBOX_DAYS * 864e5).toISOString(),
   };

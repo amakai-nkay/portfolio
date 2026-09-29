@@ -130,7 +130,7 @@ export default function Docs() {
             <tr><td>Commercial</td><td>10</td><td>Seats kept against the contract, invoices paid on time</td></tr>
           </tbody>
         </table></div>
-        <p>70 and above is healthy, 50 to 69 is at risk, below 50 is critical. An alert fires when an account moves into a worse band, at most once a minute per sandbox.</p>
+        <p>70 and above is healthy, 50 to 69 is at risk, below 50 is critical. An alert fires only when an account moves into a worse band, at most once a minute per sandbox. Each sandbox emails at most 3 alerts in its lifetime, and a reset doesn&apos;t clear that count.</p>
       </div>
     </main>
   );

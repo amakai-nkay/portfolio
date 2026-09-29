@@ -94,14 +94,15 @@ export async function deliverAlert(
   }
 
   const n8n = process.env.N8N_WEBHOOK_URL;
+  const wf = process.env.ALERT_WORKFLOW_NAME || "Make";   // the workflow tool behind the webhook
   if (n8n) {
-    const ok = await timed("n8n webhook", log, async () => {
+    const ok = await timed(`${wf} webhook`, log, async () => {
       const res = await fetch(n8n, { method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({ to, subject, body, ...payload }) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return true;
-    }, `Alert handed to n8n for ${maskEmail(to)}`);
-    if (ok) { counter.n++; return { delivered: "email", via: "n8n" }; }
+    }, `Alert handed to the ${wf} workflow, which emails ${maskEmail(to)}`);
+    if (ok) { counter.n++; return { delivered: "email", via: wf }; }
   }
 
   const resend = process.env.RESEND_API_KEY;

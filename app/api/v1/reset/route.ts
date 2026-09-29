@@ -14,7 +14,8 @@ export async function POST(req: Request) {
   const events = seedEvents(sandbox.id);
   await store.deleteEvents(sandbox.id);
   await store.addEvents(events);
-  sandbox.meta = { log: [], alerts: [] };
+  // Keep the email count, so a reset can't be used to send more alert emails.
+  sandbox.meta = { log: [], alerts: [], emailsSent: sandbox.meta.emailsSent || 0 };
   await store.updateMeta(sandbox.id, sandbox.meta);
   return json({ reset: true, account: await accountView(sandbox, events) });
 }
