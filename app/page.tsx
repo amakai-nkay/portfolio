@@ -176,6 +176,48 @@ export default function Home() {
           </dl>
         </div>
       </section>
+      <section className="section" id="looking-for">
+        <div className="wrap split">
+          <div>
+            <h2>What I&apos;m looking for</h2>
+          </div>
+          <div className="looking">
+            <p className="lead">
+              I&apos;m drawn to ambitious, technically driven companies solving meaningful problems: businesses where
+              technology, customer outcomes and commercial impact are closely connected.
+            </p>
+            <p>
+              I do my best work in environments that value ownership, rigorous thinking and moving with purpose. I enjoy
+              working through complex problems, challenging assumptions constructively, and turning ambiguity into
+              practical solutions rather than waiting for a playbook to exist.
+            </p>
+            <p>
+              Just as important to me is a positive, supportive team culture. I value working with people who are
+              generous with their knowledge, celebrate each other&apos;s successes, give honest and constructive feedback,
+              and create an environment where people feel comfortable asking questions, sharing ideas and learning from
+              mistakes. I believe high standards and kindness should go hand in hand.
+            </p>
+            <p>
+              I&apos;m particularly interested in teams that collaborate closely across Sales, Engineering, Product and
+              Customer Success, where customer feedback informs the product and technical expertise plays a meaningful
+              role in business growth.
+            </p>
+            <p>
+              Having spent much of my career building processes, enablement and customer-facing solutions in high-growth
+              SaaS companies, I&apos;m excited by opportunities to help scale a business while remaining close to the
+              technology and the people using it.
+            </p>
+            <p>
+              Ultimately, I&apos;m looking for a team that combines ambition with trust, autonomy with collaboration, and a
+              commitment to doing excellent work with a genuine desire to see the people around them succeed.
+            </p>
+            <div className="ctas" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
+              {site.email ? <a className="btn accent" href={`mailto:${site.email}`}>Get in touch</a> : null}
+              {site.linkedin ? <a className="btn ghost" href={site.linkedin}>LinkedIn</a> : null}
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
