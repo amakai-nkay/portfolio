@@ -37,7 +37,7 @@ export default function Home() {
         </div>
         <div className="wrap">
           <ul className="wins" aria-label="Selected results">
-            <li><b>$1M+</b><span>Commercial and enterprise revenue closed</span><small>Across my career, through consultative technical discovery, solution architecture and ROI validation</small></li>
+            <li><b>Multi-million</b><span>Commercial and enterprise revenue impact</span><small>Influencing multi-million-dollar opportunities across EMEA and the Americas through technical discovery, solution architecture, proof-of-concept delivery and ROI validation</small></li>
             <li><b>15%</b><span>Higher enterprise conversion</span><small>From technical narratives tied to outcomes each customer defined</small></li>
             <li><b>20%</b><span>Faster RFP and RFI responses</span><small>From an AI-powered automation tool I built in Python, with human review</small></li>
             <li><b>Built from zero</b><span>Global technical sales enablement at Kinsta</span><small>3 certification tracks, 6 reusable demo frameworks and 10 technical sales playbooks, used across global teams</small></li>
