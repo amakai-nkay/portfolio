@@ -36,7 +36,7 @@ const CARDS: Card[] = [
   },
   {
     id: "iot", title: "Manufacturing, IoT & Industrial Technology",
-    text: "Experience with physical systems, connected vehicles and industrial data, not only software.",
+    text: "Physical systems, connected vehicles and industrial data, not only software. As a manufacturing engineer I lifted production output 22% with Lean Six Sigma.",
     tags: ["Manufacturing engineering", "Vehicle telemetry", "IoT platforms", "Systems integration"],
     all: ["Manufacturing engineering", "Connected-vehicle technology", "Vehicle telemetry", "IoT platforms", "Systems integration", "Operational technology", "Engineering problem-solving", "Technical requirements"],
   },
