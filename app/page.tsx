@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Routes from "./Routes";
+import Terminal from "./Terminal";
 import Skills from "./Skills";
 import { site } from "@/lib/site";
 
@@ -98,6 +99,24 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section" id="terminal">
+        <div className="wrap term-grid">
+          <div>
+            <h2>Prefer the command line?</h2>
+            <p className="intro">
+              Everything in Kova also works from a terminal. This one runs in your browser against Kova&apos;s live API.
+              Create a sandbox, check the score, send events and watch it change.
+            </p>
+            <p className="intro">
+              Type <code>install</code> to get <code>kova.sh</code>, the Bash client I wrote, and run the same commands
+              on your own Linux or macOS machine. The <Link href="/architecture#linux">architecture page</Link> shows how
+              to run Kova itself on a Linux server.
+            </p>
+          </div>
+          <Terminal />
+        </div>
+      </section>
+
       <section className="section" id="skills">
         <div className="wrap">
           <h2>Skills</h2>
@@ -138,7 +157,7 @@ export default function Home() {
             <p className="intro">
               I&apos;ve worked across enterprise CMS, cloud hosting, connected vehicle data, network security, AI and
               RegTech, so I pick up new domains quickly and can talk to engineers, operations teams and executives
-              in their own terms. I&apos;ve worked with customers across EMEA and the Americas, and spent two years living and working in the UAE.
+              in their own terms, whether that&apos;s developers, security teams or operations. I&apos;ve worked with customers across EMEA and the Americas, and spent two years living and working in the UAE.
             </p>
             <div className="ctas" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {site.email ? <a className="btn" href={`mailto:${site.email}`}>Email me</a> : null}
@@ -152,6 +171,7 @@ export default function Home() {
             <div><dt>Certifications</dt><dd>Azure AI Fundamentals, Azure Fundamentals, MEDDIC, HubSpot Sales Enablement, Lean Six Sigma Yellow Belt</dd></div>
             <div><dt>Education</dt><dd>BEng, Southampton Solent University</dd></div>
             <div><dt>Languages</dt><dd>English, Igbo, conversational French</dd></div>
+            <div><dt>Community</dt><dd>Women in Dev, volunteer since 2019. Solar Sister, community member</dd></div>
             <div><dt>Based in</dt><dd>{site.location}</dd></div>
           </dl>
         </div>

@@ -2,6 +2,8 @@ import Link from "next/link";
 
 export const metadata = { title: "How Kova works — architecture" };
 
+const Code = ({ children }: { children: string }) => <div className="code" style={{ margin: "10px 0 16px" }}>{children}</div>;
+
 function Diagram() {
   const box = (x: number, y: number, w: number, t: string, s: string, accent = false) => (
     <g transform={`translate(${x},${y})`}>
@@ -56,6 +58,8 @@ export default function Architecture() {
         <a href="#flow">One event, end to end</a>
         <a href="#decisions">Design decisions</a>
         <a href="#stack">Stack</a>
+        <a href="#cli">Command-line client</a>
+        <a href="#linux">Run Kova on a Linux server</a>
         <a href="#production">What changes in production</a>
       </aside>
       <div>
@@ -122,6 +126,91 @@ export default function Architecture() {
             <tr><td>AI writing</td><td>Anthropic API</td><td>Optional, with a template fallback so nothing breaks without it</td></tr>
           </tbody>
         </table></div>
+
+        <h2 id="cli">Command-line client</h2>
+        <p>
+          <code>kova.sh</code> is a small Bash client for the API: curl for the requests, jq for readable output when
+          it&apos;s installed, and clear errors when something&apos;s wrong. It keeps the sandbox key in a file only you
+          can read. You can also try the same commands in the terminal on the <Link href="/#terminal">home page</Link>.
+        </p>
+        <Code>{`curl -sO https://<this-site>/kova.sh && chmod +x kova.sh
+export KOVA_URL=https://<this-site>
+
+./kova.sh new                                   # create a sandbox
+./kova.sh score                                 # score, reasons, next step
+./kova.sh send contact.left role=champion       # send a real event
+./kova.sh send usage.weekly active_users=14 logins=30
+./kova.sh events                                # recent history
+./kova.sh reset                                 # back to the start`}</Code>
+        <Code>{`$ ./kova.sh send usage.weekly active_users=14 logins=30
+Weekly usage: 14 active users, 30 logins
+Health: 76 -> 58 (at_risk)
+Alert raised: the account dropped a band`}</Code>
+
+        <h2 id="linux">Run Kova on a Linux server</h2>
+        <p>
+          The live site runs on Vercel, but Kova is a standard Node.js app and runs on any Linux server. On Ubuntu 24.04,
+          as a user with sudo:
+        </p>
+        <h3>1. Install Node.js and create a service user</h3>
+        <Code>{`sudo apt update && sudo apt install -y git curl
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+sudo useradd --system --create-home --shell /usr/sbin/nologin kova`}</Code>
+        <h3>2. Get the code and build it</h3>
+        <Code>{`sudo -u kova git clone https://github.com/amakai-nkay/portfolio.git /home/kova/app
+cd /home/kova/app
+sudo -u kova npm ci
+sudo -u kova npm run build`}</Code>
+        <h3>3. Keep the secrets out of the code</h3>
+        <Code>{`sudo tee /etc/kova.env > /dev/null <<'EOF'
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+N8N_WEBHOOK_URL=https://hook.eu1.make.com/your-webhook
+EOF
+sudo chown root:kova /etc/kova.env
+sudo chmod 640 /etc/kova.env`}</Code>
+        <h3>4. Run it as a service that restarts itself</h3>
+        <Code>{`sudo tee /etc/systemd/system/kova.service > /dev/null <<'EOF'
+[Unit]
+Description=Kova
+After=network-online.target
+
+[Service]
+User=kova
+WorkingDirectory=/home/kova/app
+EnvironmentFile=/etc/kova.env
+ExecStart=/usr/bin/npm start -- -p 3000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now kova
+systemctl status kova --no-pager`}</Code>
+        <h3>5. Put it behind nginx and open the firewall</h3>
+        <Code>{`sudo apt install -y nginx
+sudo tee /etc/nginx/sites-available/kova > /dev/null <<'EOF'
+server {
+    listen 80;
+    server_name kova.example.com;
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+EOF
+sudo ln -s /etc/nginx/sites-available/kova /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+sudo ufw allow OpenSSH && sudo ufw allow 'Nginx Full' && sudo ufw enable`}</Code>
+        <h3>6. Check it and watch the logs</h3>
+        <Code>{`curl -s -o /dev/null -w "%{http_code}\\n" localhost:3000/api/v1/account   # 401 means it's up and asking for a key
+journalctl -u kova -f                                                     # follow the logs
+sudo systemctl restart kova                                               # after pulling new code and rebuilding`}</Code>
+        <p className="sub">Add HTTPS with <code>sudo apt install -y certbot python3-certbot-nginx</code> and <code>sudo certbot --nginx</code> once the domain points at the server.</p>
 
         <h2 id="production">What changes in production</h2>
         <p>This is a demo, and some things are deliberately simpler than they would be for a paying customer. What I&apos;d add:</p>

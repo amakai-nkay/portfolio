@@ -8,13 +8,13 @@ const CARDS: Card[] = [
     id: "se", title: "Solutions Engineering & Technical Pre-Sales",
     text: "Running technical evaluations from the first discovery call through to the technical win.",
     tags: ["Technical discovery", "Enterprise demos", "POC/POV design", "MEDDIC"],
-    all: ["Technical discovery", "Stakeholder interviews", "Enterprise demos", "Solution architecture", "POC/POV design", "Technical evaluations", "ROI validation", "MEDDIC", "RFP/RFI responses", "Technical win strategy"],
+    all: ["Technical discovery", "Stakeholder interviews", "Enterprise demos", "Solution architecture", "POC/POV design", "Technical evaluations", "Technical objection handling", "Business-value and ROI validation", "Competitive positioning", "Sandbox builds", "MEDDIC", "RFP/RFI responses", "Security questionnaires", "Technical win strategy"],
   },
   {
     id: "api", title: "APIs, Integrations & Systems Architecture",
     text: "Connecting products to the systems customers already run, and fixing it when the data doesn't line up.",
     tags: ["REST APIs", "Webhooks", "OAuth", "CRM integrations"],
-    all: ["REST APIs", "GraphQL", "Webhooks", "OAuth", "SDKs", "JSON", "Postman", "CRM integrations", "Authentication", "Data mapping", "API testing", "Troubleshooting"],
+    all: ["REST APIs", "GraphQL", "Webhooks", "OAuth", "SDKs", "JSON", "Postman", "CRM integrations", "iPaaS workflows", "Authentication", "Data mapping", "API testing", "Integration guides", "Troubleshooting"],
   },
   {
     id: "gtm", title: "GTM Engineering & Revenue Systems",
@@ -25,14 +25,14 @@ const CARDS: Card[] = [
   {
     id: "ai", title: "AI Engineering & Intelligent Automation",
     text: "Putting LLMs to work inside real business processes, with people reviewing the output.",
-    tags: ["LLM integration", "RAG", "AI agents", "Human-in-the-loop"],
-    all: ["LLM integration", "Generative AI", "RAG", "Prompt engineering", "Structured outputs", "Tool calling", "AI agents", "Human-in-the-loop workflows", "Output evaluation", "n8n", "Make", "Zapier"],
+    tags: ["LLM integration", "RAG", "Agentic AI", "Human-in-the-loop"],
+    all: ["LLM integration", "LLMs and SLMs", "Generative AI", "RAG", "Prompt engineering", "Structured outputs", "Tool calling", "Agentic AI", "AI agents", "AI workflow design", "LLM-powered automation", "Human-in-the-loop workflows", "Output evaluation and QA", "AI adoption enablement", "n8n", "Make", "Zapier"],
   },
   {
     id: "eng", title: "Software Engineering, Cloud & Data",
     text: "Hands-on enough to build prototypes, automations and integrations myself, not just specify them.",
-    tags: ["Python", "JavaScript", "SQL", "PostgreSQL"],
-    all: ["Python", "JavaScript", "SQL", "Git", "GitHub", "CI/CD", "PostgreSQL", "Microsoft Azure", "AWS", "GCP", "Snowflake", "Databricks", "Kubernetes", "Tableau", "Power BI", "Looker", "Datadog", "Grafana"],
+    tags: ["Python", "JavaScript", "Linux command line", "Git"],
+    all: ["Python", "JavaScript", "Node.js", "SQL", "Bash scripting", "Linux command line", "npm", "PyPI", "Git", "GitHub", "GitLab", "Bitbucket", "CI/CD", "PostgreSQL", "Microsoft Azure", "AWS", "GCP", "Snowflake", "Databricks", "Kubernetes", "Tableau", "Power BI", "Looker", "Datadog", "Grafana"],
   },
   {
     id: "iot", title: "Manufacturing, IoT & Industrial Technology",
@@ -43,13 +43,17 @@ const CARDS: Card[] = [
 ];
 
 const TOOLKIT: { title: string; items: string[] }[] = [
-  { title: "Business Applications, CRM & Digital Platforms", items: ["Salesforce", "HubSpot", "Microsoft Dynamics 365", "Pipedrive", "Jira", "Confluence", "Notion", "Linear", "Zendesk", "Intercom", "Gainsight", "Kentico Xperience", "Contentful", "WordPress", "Drupal", "Shopify", "Magento", "WooCommerce", "BigCommerce"] },
-  { title: "FinTech, RegTech & Security", items: ["KYB", "KYC", "AML", "CDD", "EDD", "UBO analysis", "Sanctions and PEP screening", "Risk scoring", "Compliance workflows", "PCI DSS", "Payment flows", "SSO", "SAML", "MFA", "Okta", "Microsoft Entra ID", "Sensitive-data handling"] },
-  { title: "Customer Implementation & Success", items: ["Implementation planning", "Onboarding", "Customer training", "Technical handover", "Adoption tracking", "Customer success plans", "Stakeholder management", "Rollout planning", "Implementation playbooks", "Success metrics"] },
+  { title: "Pre-Sales & Technical GTM", items: ["Technical discovery", "POC and POV design", "Enterprise demos", "Technical objection handling", "Business-value and ROI validation", "MEDDIC", "RFPs, RFIs and security questionnaires", "Competitive positioning", "Sandbox builds"] },
+  { title: "Post-Sales, Adoption & Growth", items: ["Enterprise account ownership", "Implementation planning", "Onboarding", "Customer training", "Technical handover", "Success plans and KPIs", "Adoption tracking", "Feature adoption", "Quarterly business reviews", "Renewals", "Expansion", "Escalation management", "Stakeholder management", "Rollout planning", "Implementation playbooks", "Technical documentation", "Integration guides"] },
+  { title: "Programming, Scripting & Package Ecosystems", items: ["JavaScript", "Python", "SQL", "Node.js", "Bash scripting", "Linux command line", "npm", "PyPI", "Package managers", "Scripting and automation", "HTML", "CSS", "Open source tooling"] },
+  { title: "Source Control, CI/CD & Cloud", items: ["Git", "GitHub", "GitLab", "Bitbucket", "CI/CD pipelines", "DevOps automation", "Deployment workflows", "Microsoft Azure", "AWS", "Google Cloud Platform", "Kubernetes", "PostgreSQL", "Cloud architecture fundamentals"] },
+  { title: "Security & Compliance", items: ["Cloud-managed network security", "Security analytics", "Compliance monitoring", "Compliance automation", "PCI DSS", "SSO", "SAML", "MFA", "Okta", "Microsoft Entra ID", "Sensitive-data handling"] },
+  { title: "FinTech & RegTech", items: ["KYB", "KYC", "AML", "CDD", "EDD", "UBO analysis", "Sanctions and PEP screening", "Risk scoring", "Compliance workflows", "Payment flows"] },
   { title: "Product Strategy, GTM & Enablement", items: ["Product positioning", "ICP and persona development", "Value propositions", "Messaging", "Competitive analysis", "Battlecards", "Pricing rationale", "Launch planning", "Sales playbooks", "Demo frameworks", "Certification paths", "Cross-functional alignment"] },
   { title: "Data, Analytics & Visualisation", items: ["SQL", "Data modelling", "Snowflake", "Databricks", "Tableau", "Power BI", "Looker", "Datadog", "Grafana"] },
-  { title: "AI Development Tools & Workflow Platforms", items: ["Claude Code", "Cursor", "GitHub Copilot", "Claude", "ChatGPT", "Replit", "Lovable", "n8n", "Make", "Zapier"] },
-  { title: "Cloud, DevOps & Technical Infrastructure", items: ["Microsoft Azure", "AWS", "Google Cloud Platform", "Git", "GitHub", "CI/CD", "PostgreSQL", "Kubernetes", "Cloud architecture fundamentals", "Deployment workflows"] },
+  { title: "AI Development Tools & Workflow Platforms", items: ["Claude Code", "Claude", "Cursor", "GitHub Copilot", "ChatGPT", "Perplexity", "Replit", "Lovable", "n8n", "Make", "Zapier"] },
+  { title: "Business Applications, CRM & Collaboration", items: ["Salesforce", "HubSpot", "Microsoft Dynamics 365", "Pipedrive", "Gainsight", "Zendesk", "Intercom", "Pylon", "Linear", "Jira", "Confluence", "Notion", "Figma", "Miro", "Monday.com"] },
+  { title: "Digital Platforms & CMS", items: ["Kentico Xperience", "Contentful", "WordPress", "Drupal", "Headless CMS", "Shopify", "Magento", "WooCommerce", "BigCommerce"] },
   { title: "Certifications", items: ["Microsoft Certified: Azure AI Fundamentals", "Microsoft Certified: Azure Fundamentals", "MEDDIC Sales Methodology Certification", "Sales Enablement Certification, HubSpot Academy", "Lean Six Sigma Yellow Belt, IASSC"] },
 ];
 
