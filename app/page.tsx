@@ -2,16 +2,19 @@ import Link from "next/link";
 import Routes from "./Routes";
 import Terminal from "./Terminal";
 import Skills from "./Skills";
+import Desk from "./Desk";
+import Wins from "./Wins";
+import Career from "./Career";
 import { site } from "@/lib/site";
 
 export default function Home() {
   return (
     <main>
       <section className="hero">
-        <div className="wrap hero-grid">
-          <div>
-            <p className="who">{site.name}. {site.role}, {site.location}.</p>
-            <h1>I help businesses understand, evaluate and successfully adopt complex software.</h1>
+        <div className="wrap">
+          <p className="who">{site.name}. {site.role}, {site.location}.</p>
+          <h1>I help businesses understand, evaluate and successfully adopt complex software.</h1>
+          <div className="hero-cols">
             <p className="lede">
               I&apos;m a Senior Solutions Engineer with 7+ years of experience across SaaS, AI, RegTech, connected data
               and manufacturing. My work sits at the intersection of technology, sales and customer success, spanning
@@ -23,25 +26,25 @@ export default function Home() {
               environments, where I&apos;ve helped establish the tools and processes needed to support technical
               evaluations, bring products to market and drive customer adoption.
             </p>
-            <div className="ctas">
-              <Link className="btn accent" href="/kova">Try Kova</Link>
-              <Link className="btn ghost" href="/#demo">Watch the demo</Link>
-              {site.linkedin ? <a className="btn ghost" href={site.linkedin}>LinkedIn</a> : null}
-              {site.email ? <a className="btn ghost" href={`mailto:${site.email}`}>Email me</a> : null}
-            </div>
           </div>
-          {site.photoUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="portrait" src={site.photoUrl} alt={`Photo of ${site.name}`} width={440} height={550} />
-          ) : null}
+          <div className="ctas">
+            <Link className="btn accent" href="/kova">Try Kova</Link>
+            <Link className="btn ghost" href="/#demo">Watch the demo</Link>
+            {site.linkedin ? <a className="btn ghost" href={site.linkedin}>LinkedIn</a> : null}
+            {site.email ? <a className="btn ghost" href={`mailto:${site.email}`}>Email me</a> : null}
+          </div>
+          <Desk />
+          <Wins />
         </div>
-        <div className="wrap">
-          <ul className="wins" aria-label="Selected results">
-            <li><b>Multi-million</b><span>Commercial and enterprise revenue impact</span><small>Influencing multi-million-dollar opportunities across EMEA and the Americas through technical discovery, solution architecture, proof-of-concept delivery and ROI validation</small></li>
-            <li><b>15%</b><span>Higher enterprise conversion</span><small>From technical narratives tied to outcomes each customer defined</small></li>
-            <li><b>20%</b><span>Faster RFP and RFI responses</span><small>From an AI-powered automation tool I built in Python, with human review</small></li>
-            <li><b>Built from zero</b><span>Global technical sales enablement at Kinsta</span><small>3 certification tracks, 6 reusable demo frameworks and 10 technical sales playbooks, used across global teams</small></li>
-          </ul>
+        <div className="ticker" aria-label="Industries I've worked in">
+          <div className="ticker-row">
+            {[0, 1].map(k => (
+              <ul key={k} aria-hidden={k === 1}>
+                {["SaaS", "AI", "RegTech and fintech", "Network security", "Cloud hosting", "Connected vehicle data",
+                  "Enterprise CMS", "Payments", "Manufacturing", "Education"].map(t => <li key={t}>{t}</li>)}
+              </ul>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -144,6 +147,14 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section" id="career">
+        <div className="wrap">
+          <h2>How I got here</h2>
+          <p className="intro">Engineering, teaching, then software. Pick any stop to see what I did there.</p>
+          <Career />
+        </div>
+      </section>
+
       <section className="section" id="about">
         <div className="wrap split">
           <div>
@@ -156,8 +167,14 @@ export default function Home() {
             </p>
             <p className="intro">
               I&apos;ve worked across enterprise CMS, cloud hosting, connected vehicle data, network security, AI and
-              RegTech, so I pick up new domains quickly and can talk to engineers, operations teams and executives
-              in their own terms, whether that&apos;s developers, security teams or operations. I&apos;ve worked with customers across EMEA and the Americas, and spent two years living and working in the UAE.
+              RegTech, so I pick up new domains quickly and can talk to developers, security teams, operations and
+              executives in their own terms. I&apos;ve worked with customers across EMEA and the Americas, and spent two
+              years living and working in the UAE.
+            </p>
+            <p className="intro">
+              I trained as a design and manufacturing engineer and worked on the production floor before moving into
+              software. That still shapes how I work: I map a customer&apos;s process end to end, find where the work
+              waits, and fix the cause rather than the symptom.
             </p>
             <div className="ctas" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {site.email ? <a className="btn" href={`mailto:${site.email}`}>Email me</a> : null}
@@ -169,7 +186,7 @@ export default function Home() {
             <div><dt>Focus</dt><dd>Solutions engineering, implementation, customer success and sales enablement</dd></div>
             <div><dt>Regions</dt><dd>EMEA and the Americas, including MENA</dd></div>
             <div><dt>Certifications</dt><dd>Azure AI Fundamentals, Azure Fundamentals, MEDDIC, HubSpot Sales Enablement, Lean Six Sigma Yellow Belt</dd></div>
-            <div><dt>Education</dt><dd>BEng, Southampton Solent University</dd></div>
+            <div><dt>Education</dt><dd>BEng Design and Manufacturing Engineering, Southampton Solent University</dd></div>
             <div><dt>Languages</dt><dd>English, Igbo, conversational French</dd></div>
             <div><dt>Community</dt><dd>Women in Dev, volunteer since 2019. Solar Sister, community member</dd></div>
             <div><dt>Based in</dt><dd>{site.location}</dd></div>

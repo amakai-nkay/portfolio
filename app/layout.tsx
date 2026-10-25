@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#demo">Demo</Link>
               <Link href="/#skills">Skills</Link>
               <Link href="/#work">Work</Link>
+              <Link href="/#career">Career</Link>
               <Link href="/#about">About</Link>
             </nav>
             {site.cvUrl ? <a className="btn small" href={site.cvUrl}>Download CV</a> : null}
