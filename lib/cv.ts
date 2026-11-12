@@ -279,8 +279,8 @@ export const EDUCATION = "BEng Design and Manufacturing Engineering, Southampton
 
 // Short recordings of you. Put the files in /public and set src, e.g. "/why.m4a". Empty = "recording soon".
 export const VOICE_NOTES: { title: string; about: string; length: string; src: string }[] = [
-  { title: "What drives the way I work", about: "My approach, motivations and what I enjoy about solving complex problems.", length: "30 sec", src: "" },
-  { title: "How I approach problem discovery", about: "Symptom → Root cause → Business impact. How I get beyond the initial problem.", length: "60 sec", src: "" },
-  { title: "From manufacturing to technology", about: "My unconventional career journey and how engineering shaped the way I approach technology.", length: "30 sec", src: "" },
-  { title: "What I want to build next", about: "The environments, challenges and teams where I believe I can make the greatest contribution.", length: "45 sec", src: "" },
+  { title: "What drives the way I work", about: "My approach, motivations and what I enjoy about solving complex problems.", length: "1:11", src: "/voice/drives.mp3" },
+  { title: "How I approach problem discovery", about: "Symptom → Root cause → Business impact. How I get beyond the initial problem.", length: "1:10", src: "/voice/discovery.mp3" },
+  { title: "From engineering to technology", about: "The foundations of how I work, and how engineering shaped the way I approach technology.", length: "1:48", src: "/voice/engineering.mp3" },
+  { title: "What I want to build next", about: "The environments, challenges and teams where I believe I can make the greatest contribution.", length: "1:40", src: "/voice/next.mp3" },
 ];
