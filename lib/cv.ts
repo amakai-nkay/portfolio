@@ -1,6 +1,6 @@
 // Everything on the interactive CV comes from here. Edit freely: the page rearranges itself from this data.
 
-export type RoleId = "se" | "cs" | "enable" | "ai";
+export type RoleId = "se" | "cs" | "enable" | "ai" | "pm" | "safety";
 export type IndustryId = "saas" | "ai" | "fintech" | "security" | "iot" | "manufacturing" | "education";
 
 export const NAME = { full: "Amaka Alexis Ikpeazu", short: "Amaka Ikpeazu" };
@@ -20,20 +20,52 @@ export const LOOKING_FOR = [
   "Ultimately, I'm looking for a team that combines ambition with trust, autonomy with collaboration, and a commitment to doing excellent work with a genuine desire to see the people around them succeed.",
 ];
 
-export const ROLES: { id: RoleId; label: string; line: string; highlights: string[] }[] = [
-  { id: "se", label: "Solutions Engineering",
+// short = welcome-screen label. hello = the "I ..." line on the poster. extra = shown quietly in the switcher.
+export const ROLES: { id: RoleId; label: string; short: string; hello: string; line: string; highlights: string[]; extra?: boolean }[] = [
+  { id: "se", label: "Solutions Engineering", short: "Solutions engineering",
+    hello: "help technical buyers say yes, from first demo to signed deal",
     line: "Discovery, demos and proofs of concept that turn technical evaluations into signed deals.",
     highlights: ["closed", "conv", "multi"] },
-  { id: "cs", label: "Customer Success & Implementation",
+  { id: "cs", label: "Customer Success", short: "Customer success",
+    hello: "get customers live and keep them, through workshops, integrations and training",
     line: "From the first workshop to go-live, then staying until people actually use what they bought.",
     highlights: ["workshops", "systems", "lean"] },
-  { id: "enable", label: "Sales Enablement",
+  { id: "enable", label: "Sales Enablement", short: "Sales enablement",
+    hello: "give sales teams what they need to run technical conversations on their own",
     line: "Giving sales teams what they need to run technical conversations without me in the room.",
     highlights: ["zero", "conv", "rfp"] },
-  { id: "ai", label: "AI & Automation",
+  { id: "ai", label: "AI & Automation", short: "AI & automation",
+    hello: "put AI to work in real sales and ops teams, from agents to RFP automation",
     line: "Working AI tools in Python and JavaScript, with people reviewing what the model produces.",
     highlights: ["rfp", "agentic", "here"] },
+  { id: "pm", label: "Product & Projects", short: "Product & projects", extra: true,
+    hello: "turn messy problems into shipped work, from scoping to launch",
+    line: "I've always been the one who scopes it, plans it and gets it shipped, then brings what customers say back to the product.",
+    highlights: ["zero", "course", "shipped"] },
+  { id: "safety", label: "AI Safety", short: "AI safety", extra: true,
+    hello: "help people trust AI for the right reasons, by testing it, explaining it and watching where it fails",
+    line: "Years of explaining what AI and automated systems do, and where they go wrong, to the people who have to rely on them.",
+    highlights: ["fhp", "kyc", "agentic"] },
 ];
+
+// Shown only when someone picks one of the newer directions.
+export const EXPLORING: Partial<Record<RoleId, { title: string; text: string; lists: { label: string; items: string[] }[] }>> = {
+  pm: {
+    title: "Where I'm taking this",
+    text: "Pre-sales put me in hundreds of customer conversations, and the part I enjoy most is turning what I hear into something that gets built. I've done it informally in every role. I want to own it.",
+    lists: [],
+  },
+  safety: {
+    title: "What I'm learning",
+    text: "I'm studying AI safety alongside my work. What drives me: AI harms that land first on women and vulnerable people, people not being able to tell what's AI, and African governments adopting AI faster than they can oversee it.",
+    lists: [
+      { label: "Podcasts", items: ["80,000 Hours", "Your Undivided Attention", "Deep View Conversations"] },
+      { label: "Newsletters", items: ["The Deep View", "Import AI", "Transformer"] },
+      { label: "People I follow", items: ["Yoshua Bengio", "Joy Buolamwini", "Abeba Birhane"] },
+      { label: "Research that shaped me", items: ["Gender Shades (Buolamwini and Gebru)"] },
+    ],
+  },
+};
 
 export const INDUSTRIES: { id: IndustryId; label: string }[] = [
   { id: "saas", label: "SaaS" },
@@ -45,18 +77,22 @@ export const INDUSTRIES: { id: IndustryId; label: string }[] = [
   { id: "education", label: "Education" },
 ];
 
-export const HIGHLIGHTS: Record<string, { big: string; label: string; where: string }> = {
-  multi:     { big: "Multi-million", label: "Commercial and enterprise revenue influenced", where: "Across EMEA and the Americas" },
-  closed:    { big: "$200k+", label: "Enterprise revenue closed, on deals averaging around $24k", where: "Smartcat" },
-  conv:      { big: "15%", label: "Higher enterprise conversion", where: "Kentico" },
-  systems:   { big: "8 systems", label: "Integrated for one compliance platform", where: "Salesforce, HubSpot, Onfido and more, at Dotfile" },
-  agentic:   { big: "Agentic AI", label: "Enterprise proofs of concept of agentic workflows, shortening evaluations to sign-off", where: "Smartcat" },
-  rfp:       { big: "20%", label: "Faster RFP and RFI responses, from an AI tool I built", where: "Kentico" },
-  zero:      { big: "From zero", label: "Global technical sales enablement: 3 certification tracks, 6 demo frameworks, 10 playbooks", where: "Kinsta" },
-  workshops: { big: "Workshop to rollout", label: "Current-state mapping, future-state design, phased go-live and an onboarding guide", where: "Dotfile and Kentico" },
-  lean:      { big: "22%", label: "More production output, with Lean Six Sigma", where: "Fusion Building Systems" },
-  iot:       { big: "Telematics", label: "SQL and Python proofs of concept on live connected vehicle data", where: "Wejo" },
-  here:      { big: "This page", label: "Runs on an API, database and Make workflow I built. Try the terminal below", where: "Side project" },
+export const HIGHLIGHTS: Record<string, { big: string; label: string; where: string; short: string }> = {
+  multi:     { big: "Multi-million", label: "Commercial and enterprise revenue influenced", where: "Across EMEA and the Americas", short: "revenue influenced" },
+  closed:    { big: "$200k+", label: "Enterprise revenue closed, on deals averaging around $24k", where: "Smartcat", short: "closed at Smartcat" },
+  conv:      { big: "15%", label: "Higher enterprise conversion", where: "Kentico", short: "higher conversion" },
+  systems:   { big: "8 systems", label: "Integrated for one compliance platform", where: "Salesforce, HubSpot, Onfido and more, at Dotfile", short: "systems integrated" },
+  agentic:   { big: "Agentic AI", label: "Enterprise proofs of concept of agentic workflows, shortening evaluations to sign-off", where: "Smartcat", short: "proofs of concept" },
+  rfp:       { big: "20%", label: "Faster RFP and RFI responses, from an AI tool I built", where: "Kentico", short: "faster RFPs" },
+  zero:      { big: "From zero", label: "Global technical sales enablement: 3 certification tracks, 6 demo frameworks, 10 playbooks", where: "Kinsta", short: "enablement built" },
+  workshops: { big: "Workshop to rollout", label: "Current-state mapping, future-state design, phased go-live and an onboarding guide", where: "Dotfile and Kentico", short: "Dotfile and Kentico" },
+  lean:      { big: "22%", label: "More production output, with Lean Six Sigma", where: "Fusion Building Systems", short: "more output" },
+  iot:       { big: "Telematics", label: "SQL and Python proofs of concept on live connected vehicle data", where: "Wejo", short: "connected vehicle data" },
+  course:    { big: "First team", label: "Part of the first team to build and deliver a new national design and innovation course", where: "Ministry of Education, UAE", short: "on a new national course" },
+  shipped:   { big: "Kova", label: "A product I scoped, built and shipped myself: API, database, docs, alert workflow and terminal", where: "Side project", short: "shipped end to end" },
+  fhp:       { big: "48 women", label: "Trained in practical AI skills through For Her Power, which I founded", where: "For Her Power, Nigeria", short: "trained in AI skills" },
+  kyc:       { big: "Explainable", label: "Automated compliance decisions that had to stand up to regulators", where: "KYB, KYC and AML at Dotfile", short: "compliance automation" },
+  here:      { big: "This page", label: "Runs on an API, database and Make workflow I built. Try the terminal below", where: "Side project", short: "built by me" },
 };
 
 // Each bullet says which roles and industries it matters most for, so the page can put the right ones first.
@@ -75,23 +111,23 @@ export const JOBS: Job[] = [
   { id: "consulting", org: "Startup consulting", role: "AI Transformation and Sales Engineering Lead", when: "2026–now", start: 2026.9,
     line: "Consulting for early-stage startups, currently an AI observability platform.",
     points: [
-      { text: "Leading AI transformation and sales engineering for an early-stage AI observability platform.", roles: ["ai", "se"], industries: ["ai", "saas"] },
-      { text: "Working across several hats, from technical demos to helping the team adopt AI in its own processes.", roles: ["se", "enable", "ai"], industries: ["ai"] },
+      { text: "Leading AI transformation and sales engineering for an early-stage AI observability platform.", roles: ["ai", "se", "safety"], industries: ["ai", "saas"] },
+      { text: "Working across several hats, from technical demos to helping the team adopt AI in its own processes.", roles: ["se", "enable", "ai", "pm"], industries: ["ai"] },
     ],
-    roles: { ai: 3, se: 3, enable: 1, cs: 1 }, industries: ["ai", "saas"],
+    roles: { safety: 3, pm: 2, ai: 3, se: 3, enable: 1, cs: 1 }, industries: ["ai", "saas"],
     skills: ["LLMs", "AI adoption enablement", "Agentic AI workflows", "Enterprise demos", "Technical discovery", "Claude Code"] },
 
   { id: "dotfile", org: "Dotfile", role: "Senior Solutions Consultant", when: "May–Aug 2026", start: 2026.4, note: "Role ended in redundancy",
     line: "Pre-sales and implementation for a KYB, KYC and AML compliance platform.",
     points: [
-      { text: "Wrote configurable KYB risk-scoring engines in JavaScript, turning each client's risk matrix into automated knockout, escalation and weighted-score logic.", roles: ["se", "ai"], industries: ["fintech"] },
+      { text: "Wrote configurable KYB risk-scoring engines in JavaScript, turning each client's risk matrix into automated knockout, escalation and weighted-score logic.", roles: ["se", "ai", "safety"], industries: ["fintech"] },
       { text: "Integrated Dotfile with Salesforce, HubSpot, Pipedrive and Google Workspace, and with verification providers Onfido, Veriff, Checkout.com and ComplyAdvantage.", roles: ["se", "cs", "ai"], industries: ["fintech", "saas"] },
-      { text: "Ran implementation workshops that mapped how compliance teams really ran onboarding, then turned it into future-state configuration and phased rollouts.", roles: ["cs", "se"], industries: ["fintech"] },
-      { text: "Built Dotfile's customer onboarding and success guide.", roles: ["cs", "enable"], industries: ["fintech", "saas"] },
+      { text: "Ran implementation workshops that mapped how compliance teams really ran onboarding, then turned it into future-state configuration and phased rollouts.", roles: ["cs", "se", "pm"], industries: ["fintech"] },
+      { text: "Built Dotfile's customer onboarding and success guide.", roles: ["cs", "enable", "pm"], industries: ["fintech", "saas"] },
       { text: "Led RFP, RFI and security questionnaire responses for regulated payments and financial services prospects.", roles: ["se"], industries: ["fintech", "security"] },
-      { text: "Ran post-go-live enablement on risk scoring, EDD, AML alert tuning and ongoing monitoring, driving adoption by non-technical compliance teams.", roles: ["cs", "enable"], industries: ["fintech"] },
+      { text: "Ran post-go-live enablement on risk scoring, EDD, AML alert tuning and ongoing monitoring, driving adoption by non-technical compliance teams.", roles: ["cs", "enable", "safety"], industries: ["fintech"] },
     ],
-    roles: { se: 3, cs: 3, ai: 2, enable: 2 }, industries: ["fintech", "saas", "security"],
+    roles: { safety: 2, pm: 2, se: 3, cs: 3, ai: 2, enable: 2 }, industries: ["fintech", "saas", "security"],
     skills: ["JavaScript", "REST APIs", "Salesforce", "HubSpot", "Pipedrive", "Google Workspace", "Onfido", "Veriff", "Checkout.com", "ComplyAdvantage",
       "KYB", "KYC", "AML", "Risk scoring", "Discovery and strategy workshops", "Current-state to future-state mapping", "Phased rollouts", "Onboarding",
       "RFPs, RFIs and security questionnaires", "Customer training", "Adoption tracking", "Implementation playbooks"] },
@@ -100,37 +136,37 @@ export const JOBS: Job[] = [
     line: "An AI translation and localisation platform. I owned the EMEA technical sales cycle.",
     points: [
       { text: "Closed over $200k in enterprise revenue, on deals averaging around $24k, through discovery, solution architecture and ROI validation.", roles: ["se"], industries: ["ai", "saas"] },
-      { text: "Built enterprise proofs of concept of agentic AI workflows, shortening evaluations from discovery to sign-off.", roles: ["se", "ai"], industries: ["ai"] },
+      { text: "Built enterprise proofs of concept of agentic AI workflows, shortening evaluations from discovery to sign-off.", roles: ["se", "ai", "safety"], industries: ["ai"] },
       { text: "Ran post-sale implementations and wrote repeatable deployment playbooks that sped up time to value.", roles: ["cs"], industries: ["saas", "ai"] },
       { text: "Fixed live integration failures across WordPress, Drupal and Contentful, restoring enterprise content pipelines.", roles: ["cs", "se"], industries: ["saas"] },
-      { text: "Fed field friction back to Product and Engineering, shaping priorities for API extensibility and integration depth.", roles: ["enable", "se"], industries: ["ai", "saas"] },
+      { text: "Fed field friction back to Product and Engineering, shaping priorities for API extensibility and integration depth.", roles: ["enable", "se", "pm"], industries: ["ai", "saas"] },
     ],
-    roles: { se: 3, ai: 3, cs: 2, enable: 1 }, industries: ["ai", "saas"],
+    roles: { pm: 1, safety: 1, se: 3, ai: 3, cs: 2, enable: 1 }, industries: ["ai", "saas"],
     skills: ["Agentic AI workflows", "POC and POV design", "Technical discovery", "Solution architecture", "Business-value and ROI validation",
       "Implementation playbooks", "WordPress", "Drupal", "Contentful", "Field feedback to Product", "LLMs"] },
 
   { id: "kentico", org: "Kentico", role: "EMEA Sales Engineer", when: "2024–2025", start: 2024, note: "Role ended in redundancy",
     line: "Technical pre-sales for an enterprise CMS and digital experience platform.",
     points: [
-      { text: "Built an AI-powered RFP and RFI tool in Python, using LLM workflows with human review, that cut response time 20%.", roles: ["ai", "se", "enable"], industries: ["ai", "saas"] },
+      { text: "Built an AI-powered RFP and RFI tool in Python, using LLM workflows with human review, that cut response time 20%.", roles: ["ai", "se", "enable", "safety", "pm"], industries: ["ai", "saas"] },
       { text: "Lifted enterprise conversion 15% with technical narratives tied to outcomes each customer defined.", roles: ["se", "enable"], industries: ["saas"] },
-      { text: "Ran solution design and implementation workshops, turning requirements into architectures and phased deployment roadmaps.", roles: ["se", "cs"], industries: ["saas"] },
+      { text: "Ran solution design and implementation workshops, turning requirements into architectures and phased deployment roadmaps.", roles: ["se", "cs", "pm"], industries: ["saas"] },
       { text: "Advised global accounts on data architecture, DevOps integration and headless, API-first design across multi-brand estates.", roles: ["se", "ai"], industries: ["saas"] },
-      { text: "Turned enterprise field feedback into structured feature requests for Product.", roles: ["enable", "cs"], industries: ["saas"] },
+      { text: "Turned enterprise field feedback into structured feature requests for Product.", roles: ["enable", "cs", "pm"], industries: ["saas"] },
     ],
-    roles: { se: 3, ai: 3, cs: 2, enable: 2 }, industries: ["saas", "ai"],
+    roles: { pm: 2, safety: 2, se: 3, ai: 3, cs: 2, enable: 2 }, industries: ["saas", "ai"],
     skills: ["Python", "LLMs", "Human-in-the-loop workflows", "RFPs, RFIs and security questionnaires", "Enterprise demos", "Solution architecture",
       "Discovery and strategy workshops", "Headless CMS", "Kentico Xperience", "DevOps automation", "Field feedback to Product"] },
 
   { id: "kinsta", org: "Kinsta", role: "Head of Technical Sales Enablement", when: "2022–2023", start: 2022, note: "Role ended in redundancy",
     line: "Managed cloud hosting on Google Cloud and Kubernetes, sold to developers.",
     points: [
-      { text: "Built the global technical sales enablement function from scratch: 3 certification tracks, 6 reusable demo frameworks, 10 technical sales playbooks.", roles: ["enable"], industries: ["saas"] },
+      { text: "Built the global technical sales enablement function from scratch: 3 certification tracks, 6 reusable demo frameworks, 10 technical sales playbooks.", roles: ["enable", "pm"], industries: ["saas"] },
       { text: "Created demo blueprints and documentation libraries so sales engineers could run enterprise evaluations on their own.", roles: ["enable", "se"], industries: ["saas"] },
       { text: "Trained non-technical sales teams to explain performance analytics, monitoring and cloud infrastructure to enterprise buyers.", roles: ["enable", "cs"], industries: ["saas"] },
-      { text: "Turned field intelligence into roadmap input for observability tooling and reporting.", roles: ["enable", "ai"], industries: ["saas"] },
+      { text: "Turned field intelligence into roadmap input for observability tooling and reporting.", roles: ["enable", "ai", "pm"], industries: ["saas"] },
     ],
-    roles: { enable: 3, se: 2, cs: 2 }, industries: ["saas"],
+    roles: { pm: 3, enable: 3, se: 2, cs: 2 }, industries: ["saas"],
     skills: ["Sales enablement", "Playbooks", "Certification paths", "Demo environments", "Demo frameworks", "Battlecards", "Technical documentation",
       "Customer training", "Kubernetes", "Google Cloud Platform", "Field feedback to Product"] },
 
@@ -139,11 +175,11 @@ export const JOBS: Job[] = [
     points: [
       { text: "Built SQL and Python proofs of concept that let enterprise clients query live vehicle telematics and find fleet insights.", roles: ["se", "ai"], industries: ["iot"] },
       { text: "Designed reusable pipeline patterns that turned raw streaming telematics into customer-facing analytics.", roles: ["ai", "se"], industries: ["iot"] },
-      { text: "Monitored pipeline health in Datadog and Grafana: ingestion throughput, latency and errors.", roles: ["ai"], industries: ["iot"] },
+      { text: "Monitored pipeline health in Datadog and Grafana: ingestion throughput, latency and errors.", roles: ["ai", "safety"], industries: ["iot"] },
       { text: "Presented the platform at industry events and partner forums across the connected vehicle ecosystem.", roles: ["se", "enable"], industries: ["iot"] },
       { text: "Built demo environments and evaluation guides so the sales team could self-serve.", roles: ["enable", "se"], industries: ["iot"] },
     ],
-    roles: { se: 3, ai: 2, enable: 2 }, industries: ["iot"],
+    roles: { pm: 1, safety: 1, se: 3, ai: 2, enable: 2 }, industries: ["iot"],
     skills: ["SQL", "Python", "POC and POV design", "Data pipelines", "Datadog", "Grafana", "Connected vehicle telematics", "IoT platforms",
       "Streaming data", "Enterprise demos", "Demo environments"] },
 
@@ -159,17 +195,17 @@ export const JOBS: Job[] = [
   { id: "fusion", org: "Fusion Building Systems", role: "Manufacturing Engineer", when: "2019–2020", start: 2019, note: "Role ended due to COVID-19",
     line: "Modular construction: steel and composite production lines.",
     points: [
-      { text: "Redesigned production workflows with Lean Six Sigma, lifting output 22% through root cause analysis and process standardisation.", roles: ["cs", "ai"], industries: ["manufacturing"] },
+      { text: "Redesigned production workflows with Lean Six Sigma, lifting output 22% through root cause analysis and process standardisation.", roles: ["cs", "ai", "pm"], industries: ["manufacturing"] },
     ],
-    roles: { cs: 1, ai: 1 }, industries: ["manufacturing"],
+    roles: { pm: 2, cs: 1, ai: 1 }, industries: ["manufacturing"],
     skills: ["Lean Six Sigma", "Root cause analysis", "Process standardisation", "Manufacturing engineering"] },
 
   { id: "moe", org: "Ministry of Education, UAE", role: "Creative Design and Innovation Educator", when: "2017–2019", start: 2017,
     line: "Part of the first team delivering a new national design and innovation course.",
     points: [
-      { text: "Designed and ran a STEM curriculum built on design thinking and real projects, with industry partners including EXPO2020.", roles: ["enable", "cs"], industries: ["education"] },
+      { text: "Designed and ran a STEM curriculum built on design thinking and real projects, with industry partners including EXPO2020.", roles: ["enable", "cs", "pm"], industries: ["education"] },
     ],
-    roles: { enable: 2, cs: 1 }, industries: ["education"],
+    roles: { pm: 2, enable: 2, cs: 1 }, industries: ["education"],
     skills: ["Curriculum design", "Design thinking", "Customer training"] },
 
   { id: "sealed", org: "Sealed Air, Utrecht", role: "Undergraduate Design Engineer", when: "2015–2016", start: 2015,
@@ -177,6 +213,16 @@ export const JOBS: Job[] = [
     points: [],
     roles: {}, industries: ["manufacturing"],
     skills: ["Design engineering"] },
+
+  { id: "fhp", org: "For Her Power", role: "Founder", when: "2025–now", start: 2025.8, note: "Alongside my main roles",
+    line: "Practical AI skills for women entrepreneurs and girls in Nigeria.",
+    points: [
+      { text: "Founded and run an AI literacy programme that has trained 48 women entrepreneurs so far, with a separate track for girls.", roles: ["pm", "safety", "enable"], industries: ["ai", "education"] },
+      { text: "Designed the programme, curriculum and delivery, and pitched it to Nigerian government agencies including NITDA and the Ministry of Women Affairs.", roles: ["pm", "safety"], industries: ["ai", "education"] },
+      { text: "Alami Capital LaunchPad finalist, and showcased at GITEX Nigeria 2025.", roles: ["pm"], industries: ["ai"] },
+    ],
+    roles: { safety: 3, pm: 3, enable: 1 }, industries: ["ai", "education"],
+    skills: ["AI literacy training", "Programme design", "Curriculum design", "Stakeholder management"] },
 ];
 
 export type SkillGroup = { title: string; roles: RoleId[]; industries?: IndustryId[]; items: string[] };
@@ -186,19 +232,26 @@ export const SKILL_GROUPS: SkillGroup[] = [
     items: ["Technical discovery", "Discovery and strategy workshops", "Stakeholder interviews", "Enterprise demos", "POC and POV design",
       "Solution architecture", "Technical evaluations", "Technical objection handling", "Business-value and ROI validation", "MEDDIC",
       "RFPs, RFIs and security questionnaires", "Competitive positioning", "Sandbox builds", "Technical win strategy"] },
-  { title: "Implementation and customer success", roles: ["cs"],
+  { title: "Product and project management", roles: ["pm"],
+    items: ["Requirements gathering", "Discovery and strategy workshops", "Current-state to future-state mapping", "Implementation planning",
+      "Phased rollouts", "Launch planning", "Field feedback to Product", "Cross-functional alignment", "Stakeholder management",
+      "Programme design", "Process improvement", "Root cause analysis", "Jira", "Linear", "Confluence", "Notion", "Miro"] },
+  { title: "AI safety and responsible AI", roles: ["safety"], industries: ["ai"],
+    items: ["LLM output evaluation and QA", "Human-in-the-loop workflows", "AI observability", "Pipeline monitoring", "Risk scoring",
+      "Explainable automated decisions", "Compliance automation", "Responsible AI principles", "AI literacy training", "Sensitive-data handling"] },
+  { title: "Implementation and customer success", roles: ["cs", "pm"],
     items: ["Enterprise account ownership", "Current-state to future-state mapping", "Implementation planning", "Phased rollouts", "Onboarding",
       "Customer training", "Technical handover", "Success plans and KPIs", "Adoption tracking", "Feature adoption", "Quarterly business reviews",
       "Renewals", "Expansion", "Escalation management", "Stakeholder management", "Implementation playbooks", "Technical documentation",
       "Integration guides", "Troubleshooting guides"] },
-  { title: "Sales enablement and go-to-market", roles: ["enable"],
+  { title: "Sales enablement and go-to-market", roles: ["enable", "pm"],
     items: ["Sales enablement", "Playbooks", "Certification paths", "Demo environments", "Demo frameworks", "Battlecards", "Curriculum design",
       "Product positioning", "ICP and persona development", "Value propositions", "Messaging", "Competitive analysis", "Pricing rationale",
       "Launch planning", "Field feedback to Product", "Cross-functional alignment"] },
   { title: "GTM engineering and revenue systems", roles: ["se", "enable", "ai"],
     items: ["CRM architecture", "Sales workflow automation", "Lead routing", "Data enrichment", "Pipeline data flows", "Sales tooling",
       "Demo automation", "Salesforce external-ID upsert"] },
-  { title: "AI engineering", roles: ["ai"], industries: ["ai"],
+  { title: "AI engineering", roles: ["ai", "safety"], industries: ["ai"],
     items: ["LLMs", "SLMs", "RAG", "Prompt engineering", "Structured output (JSON)", "Tool calling", "Agentic AI workflows", "AI agents",
       "Human-in-the-loop workflows", "LLM output evaluation and QA", "Document processing", "Data extraction", "Classification",
       "AI workflow design", "AI adoption enablement"] },
@@ -215,7 +268,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
     items: ["Data pipelines", "Data modelling", "Snowflake", "Databricks", "Tableau", "Power BI", "Looker", "Datadog", "Grafana"] },
   { title: "IoT and connected data", roles: [], industries: ["iot"],
     items: ["Connected vehicle telematics", "IoT platforms", "Streaming data", "Fleet and smart city use cases", "Systems integration", "Operational technology"] },
-  { title: "Fintech, compliance and security", roles: ["se", "cs"], industries: ["fintech", "security"],
+  { title: "Fintech, compliance and security", roles: ["se", "cs", "safety"], industries: ["fintech", "security"],
     items: ["KYB", "KYC", "AML", "CDD and EDD", "UBO analysis", "Sanctions and PEP screening", "Adverse media screening", "Risk scoring",
       "Ongoing monitoring", "Compliance automation", "Payment flows", "PCI DSS", "Network security", "Security analytics", "SSO", "SAML", "MFA",
       "Okta", "Microsoft Entra ID", "Sensitive-data handling", "ComplyAdvantage", "Onfido", "Veriff", "IDnow", "Checkout.com"] },

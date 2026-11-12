@@ -2,9 +2,10 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Terminal from "./Terminal";
+import Welcome from "./Welcome";
 import { site } from "@/lib/site";
 import {
-  NAME, SUMMARY, NOW, LOOKING_FOR, ROLES, INDUSTRIES, HIGHLIGHTS, JOBS, SKILL_GROUPS, CERTS, EDUCATION, VOICE_NOTES,
+  NAME, SUMMARY, NOW, LOOKING_FOR, ROLES, EXPLORING, INDUSTRIES, HIGHLIGHTS, JOBS, SKILL_GROUPS, CERTS, EDUCATION, VOICE_NOTES,
   type RoleId, type IndustryId, type Point,
 } from "@/lib/cv";
 
@@ -53,6 +54,8 @@ export default function InteractiveCV() {
   const [more, setMore] = useState<Set<string>>(new Set());
   const [allSkills, setAllSkills] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
+  const [replay, setReplay] = useState(0);
+  const [entered, setEntered] = useState(false);
   const videoRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -69,6 +72,9 @@ export default function InteractiveCV() {
   }, [role, ind]);
 
   const roleInfo = ROLES.find(r => r.id === role);
+  const exploring = role ? EXPLORING[role] : undefined;
+  const onPick = (r: RoleId | null) => { setRole(r); setEntered(false); setTimeout(() => setEntered(true), 700); };
+  useEffect(() => { const t = setTimeout(() => setEntered(true), 400); return () => clearTimeout(t); }, []);
   const tailored = !!(role || ind);
 
   const jobs = useMemo(() => {
@@ -122,13 +128,44 @@ export default function InteractiveCV() {
 
   return (
     <main className="cv">
-      {/* hero */}
-      <section className="wrap cv-hero" aria-labelledby="cv-name">
-        <div className="cv-hero-text">
-          <p className="cv-kicker">Senior Solutions Engineer, {site.location}</p>
-          <h1 id="cv-name" className="cv-name">{NAME.full}</h1>
-          <p className="cv-headline">I help businesses understand, evaluate and successfully adopt complex software.</p>
-          {SUMMARY.map(p => <p key={p.slice(0, 20)} className="cv-summary">{p}</p>)}
+      <Welcome replay={replay} onPick={onPick} />
+
+      {/* poster */}
+      <section className={`cv-poster${entered ? " in" : ""}`} aria-labelledby="cv-name">
+        <div className="cv-poster-text">
+          <p className="cv-kicker">
+            Senior Solutions Engineer · {site.location}
+            <button className="cv-replay" onClick={() => setReplay(n => n + 1)}>Replay intro</button>
+          </p>
+          <h1 id="cv-name" className="cv-big" aria-label={NAME.full}>
+            <span className="a">Amaka</span>
+            <span className="b">Alexis Ikpeazu</span>
+          </h1>
+          <p className="cv-hello" key={role ?? "all"}>
+            I <b>{roleInfo ? roleInfo.hello : "help businesses understand, evaluate and successfully adopt complex software"}</b>.
+          </p>
+          <ul className="cv-stats" key={`s-${role}-${ind}`}>
+            {highlights.map(h => <li key={h.id}><b>{h.big}</b><span>{h.label}</span><small>{h.where}</small></li>)}
+          </ul>
+        </div>
+        <div className="cv-poster-panel">
+          <i className="ring r1" aria-hidden="true" /><i className="ring r2" aria-hidden="true" />
+          <span className="cv-tag t1"><i aria-hidden="true" />Open to work</span>
+          {site.photoUrl ? (
+            <div className="cv-photo">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={site.photoUrl} alt={NAME.full} width={360} height={450} />
+              {site.introVideoUrl ? <button className="cv-photo-play" onClick={() => videoRef.current?.showModal()}><i className="play" />Meet me in 60 seconds</button> : null}
+            </div>
+          ) : null}
+          <span className="cv-tag t2">7+ years · EMEA &amp; the Americas</span>
+        </div>
+      </section>
+
+      {/* summary */}
+      <section className="wrap cv-intro" aria-label="Summary">
+        <div>{SUMMARY.map(p => <p key={p.slice(0, 20)} className="cv-summary">{p}</p>)}</div>
+        <div className="cv-intro-side">
           <p className="cv-now"><i aria-hidden="true" />{NOW}</p>
           <div className="cv-ctas">
             <a className="cv-btn solid" href={`mailto:${site.email}`}>Email me</a>
@@ -136,13 +173,6 @@ export default function InteractiveCV() {
             <button className="cv-btn" onClick={() => window.print()}>Save as PDF</button>
           </div>
         </div>
-        {site.photoUrl ? (
-          <div className="cv-photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={site.photoUrl} alt={NAME.full} width={360} height={450} />
-            {site.introVideoUrl ? <button className="cv-photo-play" onClick={() => videoRef.current?.showModal()}><i className="play" />Meet me in 60 seconds</button> : null}
-          </div>
-        ) : null}
       </section>
       {site.introVideoUrl ? (
         <dialog ref={videoRef} className="cv-video" onClick={e => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
@@ -157,7 +187,9 @@ export default function InteractiveCV() {
           <div className="cv-switch-row" role="group" aria-label="What are you hiring for?">
             <span className="cv-switch-label">Hiring for</span>
             <button className="chip" aria-pressed={!role} onClick={() => setRole(null)}>Everything</button>
-            {ROLES.map(r => <button key={r.id} className="chip" aria-pressed={role === r.id} onClick={() => setRole(r.id)}>{r.label}</button>)}
+            {ROLES.filter(r => !r.extra).map(r => <button key={r.id} className="chip" aria-pressed={role === r.id} onClick={() => setRole(r.id)}>{r.label}</button>)}
+            <span className="cv-switch-sep" aria-hidden="true" />
+            {ROLES.filter(r => r.extra).map(r => <button key={r.id} className="chip alt" aria-pressed={role === r.id} onClick={() => setRole(r.id)}>{r.label}</button>)}
           </div>
           <div className="cv-switch-row" role="group" aria-label="Which industry?">
             <span className="cv-switch-label">In</span>
@@ -169,9 +201,19 @@ export default function InteractiveCV() {
 
       <section className="wrap cv-section" aria-live="polite">
         <p className="cv-roleline">{roleInfo ? roleInfo.line : "Pick what you're hiring for above. The experience, examples and skills below rearrange to match."}</p>
-        <ul className="cv-hl">
-          {highlights.map(h => <li key={h.id} className="hl-in"><b>{h.big}</b><span>{h.label}</span><small>{h.where}</small></li>)}
-        </ul>
+        {exploring ? (
+          <div className="cv-explore" key={role}>
+            <div>
+              <h3>{exploring.title}</h3>
+              <p>{exploring.text}</p>
+            </div>
+            {exploring.lists.length ? (
+              <dl>
+                {exploring.lists.map(l => <div key={l.label}><dt>{l.label}</dt><dd>{l.items.join(" · ")}</dd></div>)}
+              </dl>
+            ) : null}
+          </div>
+        ) : null}
       </section>
 
       {/* experience */}
