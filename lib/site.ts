@@ -2,7 +2,7 @@
 export const site = {
   name: "Amaka Ikpeazu",
   role: "Senior Solutions Engineer",
-  location: "Northampton, UK",
+  location: "UK",
   email: "amakaikpeazu@gmail.com",
   linkedin: "https://www.linkedin.com/in/amakaikpeazu/",
   cvUrl: "",               // left empty: CVs are tailored per role, so no download

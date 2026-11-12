@@ -4,7 +4,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `${site.name}, Senior Solutions Engineer`,
+  title: "Amaka Alexis Ikpeazu, Senior Solutions Engineer",
   description: "Interactive CV: solutions engineering, customer success, sales enablement and AI automation.",
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav aria-label="Main">
               <Link href="/#experience">Experience</Link>
               <Link href="/#skills">Skills</Link>
+              <Link href="/#looking-for">Looking for</Link>
               <Link href="/#built">Built</Link>
               <Link href="/#contact">Contact</Link>
             </nav>
@@ -31,11 +32,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
-        <footer className="foot">
-          <div className="wrap">
-            <p>{site.name}. Kova is a side project. Its customer data is sample data; the code, API and integrations are real.</p>
-          </div>
-        </footer>
       </body>
     </html>
   );
