@@ -4,8 +4,8 @@ import "./globals.css";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `${site.name} — solutions engineering portfolio`,
-  description: "Solutions engineering, customer success and product marketing work, built around Kova, a working demo product with a real API.",
+  title: `${site.name}, Senior Solutions Engineer`,
+  description: "Interactive CV: solutions engineering, customer success, sales enablement and AI automation.",
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
@@ -22,13 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="nav-in">
             <Link href="/" className="nav-name">{site.name}</Link>
             <nav aria-label="Main">
-              <Link href="/kova">Try Kova</Link>
-              <Link href="/kova/docs">API</Link>
-              <Link href="/#demo">Demo</Link>
+              <Link href="/#experience">Experience</Link>
               <Link href="/#skills">Skills</Link>
-              <Link href="/#work">Work</Link>
-              <Link href="/#career">Career</Link>
-              <Link href="/#about">About</Link>
+              <Link href="/#built">Built</Link>
+              <Link href="/#contact">Contact</Link>
             </nav>
             {site.cvUrl ? <a className="btn small" href={site.cvUrl}>Download CV</a> : null}
           </div>
@@ -36,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer className="foot">
           <div className="wrap">
-            <p>{site.name}. Kova is a product I made up so I could show real work without breaking client confidentiality. The data in it is fictional; the code, API and integrations are real.</p>
+            <p>{site.name}. Kova is a side project. Its customer data is sample data; the code, API and integrations are real.</p>
           </div>
         </footer>
       </body>
