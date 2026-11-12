@@ -45,7 +45,7 @@ export const ROLES: { id: RoleId; label: string; short: string; hello: string; l
   { id: "safety", label: "AI Safety", short: "AI safety", extra: true,
     hello: "help people trust AI for the right reasons, by testing it, explaining it and watching where it fails",
     line: "Years of explaining what AI and automated systems do, and where they go wrong, to the people who have to rely on them.",
-    highlights: ["fhp", "kyc", "agentic"] },
+    highlights: ["rfp", "agentic", "shipped"] },
 ];
 
 // Shown only when someone picks one of the newer directions.
@@ -86,8 +86,6 @@ export const HIGHLIGHTS: Record<string, { big: string; label: string; where: str
   iot:       { big: "Telematics", label: "SQL and Python proofs of concept on live connected vehicle data", where: "Wejo", short: "connected vehicle data" },
   course:    { big: "First team", label: "Part of the first team to build and deliver a new national design and innovation course", where: "Ministry of Education, UAE", short: "on a new national course" },
   shipped:   { big: "Kova", label: "A product I scoped, built and shipped myself: API, database, docs, alert workflow and terminal", where: "Side project", short: "shipped end to end" },
-  fhp:       { big: "48 women", label: "Trained in practical AI skills through For Her Power, which I founded", where: "For Her Power, Nigeria", short: "trained in AI skills" },
-  kyc:       { big: "Explainable", label: "Automated compliance decisions that had to stand up to regulators", where: "KYB, KYC and AML at Dotfile", short: "compliance automation" },
   here:      { big: "This page", label: "Runs on an API, database and Make workflow I built. Try the terminal below", where: "Side project", short: "built by me" },
 };
 
@@ -209,16 +207,6 @@ export const JOBS: Job[] = [
     points: [],
     roles: {}, industries: ["manufacturing"],
     skills: ["Design engineering"] },
-
-  { id: "fhp", org: "For Her Power", role: "Founder", when: "2025–now", start: 2025.8, note: "Alongside my main roles",
-    line: "Practical AI skills for women entrepreneurs and girls in Nigeria.",
-    points: [
-      { text: "Founded and run an AI literacy programme that has trained 48 women entrepreneurs so far, with a separate track for girls.", roles: ["pm", "safety", "enable"], industries: ["ai", "education"] },
-      { text: "Designed the programme, curriculum and delivery, and pitched it to Nigerian government agencies including NITDA and the Ministry of Women Affairs.", roles: ["pm", "safety"], industries: ["ai", "education"] },
-      { text: "Alami Capital LaunchPad finalist, and showcased at GITEX Nigeria 2025.", roles: ["pm"], industries: ["ai"] },
-    ],
-    roles: { safety: 3, pm: 3, enable: 1 }, industries: ["ai", "education"],
-    skills: ["AI literacy training", "Programme design", "Curriculum design", "Stakeholder management"] },
 ];
 
 export type SkillGroup = { title: string; roles: RoleId[]; industries?: IndustryId[]; items: string[] };
@@ -231,10 +219,10 @@ export const SKILL_GROUPS: SkillGroup[] = [
   { title: "Product and project management", roles: ["pm"],
     items: ["Requirements gathering", "Discovery and strategy workshops", "Current-state to future-state mapping", "Implementation planning",
       "Phased rollouts", "Launch planning", "Field feedback to Product", "Cross-functional alignment", "Stakeholder management",
-      "Programme design", "Process improvement", "Root cause analysis", "Jira", "Linear", "Confluence", "Notion", "Miro"] },
+      "Process improvement", "Root cause analysis", "Jira", "Linear", "Confluence", "Notion", "Miro"] },
   { title: "AI safety and responsible AI", roles: ["safety"], industries: ["ai"],
     items: ["LLM output evaluation and QA", "Human-in-the-loop workflows", "AI observability", "Pipeline monitoring", "Risk scoring",
-      "Explainable automated decisions", "Compliance automation", "Responsible AI principles", "AI literacy training", "Sensitive-data handling"] },
+      "Explainable automated decisions", "Compliance automation", "Responsible AI principles", "Sensitive-data handling"] },
   { title: "Implementation and customer success", roles: ["cs", "pm"],
     items: ["Enterprise account ownership", "Current-state to future-state mapping", "Implementation planning", "Phased rollouts", "Onboarding",
       "Customer training", "Technical handover", "Success plans and KPIs", "Adoption tracking", "Feature adoption", "Quarterly business reviews",
@@ -290,9 +278,9 @@ export const CERTS = [
 export const EDUCATION = "BEng Design and Manufacturing Engineering, Southampton Solent University, 2012–2017";
 
 // Short recordings of you. Put the files in /public and set src, e.g. "/why.m4a". Empty = "recording soon".
-export const VOICE_NOTES: { title: string; length: string; src: string }[] = [
-  { title: "Why I do this work", length: "30 sec", src: "" },
-  { title: "How I run discovery: symptom, cause, impact", length: "60 sec", src: "" },
-  { title: "From the factory floor to software", length: "30 sec", src: "" },
-  { title: "What I'm looking for next", length: "45 sec", src: "" },
+export const VOICE_NOTES: { title: string; about: string; length: string; src: string }[] = [
+  { title: "What drives the way I work", about: "My approach, motivations and what I enjoy about solving complex problems.", length: "30 sec", src: "" },
+  { title: "How I approach problem discovery", about: "Symptom → Root cause → Business impact. How I get beyond the initial problem.", length: "60 sec", src: "" },
+  { title: "From manufacturing to technology", about: "My unconventional career journey and how engineering shaped the way I approach technology.", length: "30 sec", src: "" },
+  { title: "What I want to build next", about: "The environments, challenges and teams where I believe I can make the greatest contribution.", length: "45 sec", src: "" },
 ];

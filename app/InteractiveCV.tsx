@@ -21,7 +21,7 @@ function pointScore(p: Point, role: RoleId | null, ind: IndustryId | null) {
   return (role && p.roles.includes(role) ? 2 : 0) + (ind && p.industries?.includes(ind) ? 1 : 0);
 }
 
-function VoiceNote({ title, length, src }: { title: string; length: string; src: string }) {
+function VoiceNote({ n, title, about, length, src }: { n: number; title: string; about: string; length: string; src: string }) {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [p, setP] = useState(0);
@@ -35,7 +35,8 @@ function VoiceNote({ title, length, src }: { title: string; length: string; src:
         <i className={playing ? "pause" : "play"} />
       </button>
       <div className="vn-body">
-        <span className="vn-title">{title}</span>
+        <span className="vn-title"><em>{String(n).padStart(2, "0")}.</em> {title}</span>
+        <span className="vn-about">{about}</span>
         <span className="vn-bar"><i style={{ width: `${p * 100}%` }} /></span>
         <span className="vn-len">{src ? length : "Recording soon"}</span>
       </div>
@@ -56,7 +57,6 @@ export default function InteractiveCV() {
   const [copied, setCopied] = useState(false);
   const [replay, setReplay] = useState(0);
   const [entered, setEntered] = useState(false);
-  const videoRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     try {
@@ -143,12 +143,11 @@ export default function InteractiveCV() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={site.photoUrl} alt={NAME.full} width={360} height={450} />
               <span className="cv-tag t1"><i aria-hidden="true" />Open to work</span>
-              {site.introVideoUrl ? <button className="cv-photo-play" onClick={() => videoRef.current?.showModal()}><i className="play" />Meet me in 60 seconds</button> : null}
             </div>
           ) : null}
           <div className="cv-poster-foot">
-            <p className="cv-hello" key={role ?? "all"}>
-              I <b>{roleInfo ? roleInfo.hello : "help businesses understand, evaluate and successfully adopt complex software"}</b>.
+            <p className="cv-hello">
+              I <b>help businesses understand, evaluate and successfully adopt complex software</b>.
             </p>
             <ul className="cv-stats" key={`s-${role}-${ind}`}>
               {highlights.map(h => <li key={h.id}><b>{h.big}</b><span>{h.label}</span><small>{h.where}</small></li>)}
@@ -169,12 +168,6 @@ export default function InteractiveCV() {
           </div>
         </div>
       </section>
-      {site.introVideoUrl ? (
-        <dialog ref={videoRef} className="cv-video" onClick={e => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
-          <video src={site.introVideoUrl} controls playsInline />
-          <button onClick={() => videoRef.current?.close()}>Close</button>
-        </dialog>
-      ) : null}
 
       {/* switcher */}
       <div className="cv-switch">
@@ -291,13 +284,26 @@ export default function InteractiveCV() {
         <p className="cv-certs"><b>Certifications.</b> {CERTS.join(". ")}.</p>
       </section>
 
+      {/* video */}
+      <section className="wrap cv-section" id="meet" aria-labelledby="h-meet">
+        <div className="cv-sec-head">
+          <h2 id="h-meet">Meet Amaka</h2>
+          <p className="sub">Two minutes on who I am, what I do and what I&apos;m looking for.</p>
+        </div>
+        <div className="cv-meet">
+          {site.introVideoUrl
+            ? <video src={site.introVideoUrl} controls playsInline preload="metadata" poster={site.photoUrl || undefined} />
+            : <div className="cv-meet-soon"><span className="cv-meet-play" aria-hidden="true"><i className="play" /></span><p>Video coming soon</p></div>}
+        </div>
+      </section>
+
       {/* voice notes */}
       <section className="wrap cv-section" aria-labelledby="h-voice">
         <div className="cv-sec-head">
           <h2 id="h-voice">Hear it from me</h2>
           <p className="sub">Short voice notes, if you&apos;d rather listen.</p>
         </div>
-        <ul className="vns">{VOICE_NOTES.map(v => <VoiceNote key={v.title} {...v} />)}</ul>
+        <ul className="vns">{VOICE_NOTES.map((v, i) => <VoiceNote key={v.title} n={i + 1} {...v} />)}</ul>
       </section>
 
       {/* looking for */}
