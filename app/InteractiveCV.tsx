@@ -5,7 +5,7 @@ import Terminal from "./Terminal";
 import Welcome from "./Welcome";
 import { site } from "@/lib/site";
 import {
-  NAME, SUMMARY, NOW, LOOKING_FOR, ROLES, EXPLORING, INDUSTRIES, HIGHLIGHTS, JOBS, SKILL_GROUPS, CERTS, EDUCATION, VOICE_NOTES,
+  NAME, SUMMARY, LOOKING_FOR, ROLES, EXPLORING, INDUSTRIES, HIGHLIGHTS, JOBS, SKILL_GROUPS, CERTS, EDUCATION, VOICE_NOTES,
   type RoleId, type IndustryId, type Point,
 } from "@/lib/cv";
 
@@ -132,33 +132,28 @@ export default function InteractiveCV() {
 
       {/* poster */}
       <section className={`cv-poster${entered ? " in" : ""}`} aria-labelledby="cv-name">
-        <div className="cv-poster-text">
+        <div className="wrap cv-poster-in">
           <p className="cv-kicker">
-            Senior Solutions Engineer · {site.location}
+            <span>Senior Solutions Engineer · {site.location}</span>
             <button className="cv-replay" onClick={() => setReplay(n => n + 1)}>Replay intro</button>
           </p>
-          <h1 id="cv-name" className="cv-big" aria-label={NAME.full}>
-            <span className="a">Amaka</span>
-            <span className="b">Alexis Ikpeazu</span>
-          </h1>
-          <p className="cv-hello" key={role ?? "all"}>
-            I <b>{roleInfo ? roleInfo.hello : "help businesses understand, evaluate and successfully adopt complex software"}</b>.
-          </p>
-          <ul className="cv-stats" key={`s-${role}-${ind}`}>
-            {highlights.map(h => <li key={h.id}><b>{h.big}</b><span>{h.label}</span><small>{h.where}</small></li>)}
-          </ul>
-        </div>
-        <div className="cv-poster-panel">
-          <i className="ring r1" aria-hidden="true" /><i className="ring r2" aria-hidden="true" />
-          <span className="cv-tag t1"><i aria-hidden="true" />Open to work</span>
+          <h1 id="cv-name" className="cv-big">Amaka Alexis <span>Ikpeazu</span></h1>
           {site.photoUrl ? (
             <div className="cv-photo">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={site.photoUrl} alt={NAME.full} width={360} height={450} />
+              <span className="cv-tag t1"><i aria-hidden="true" />Open to work</span>
               {site.introVideoUrl ? <button className="cv-photo-play" onClick={() => videoRef.current?.showModal()}><i className="play" />Meet me in 60 seconds</button> : null}
             </div>
           ) : null}
-          <span className="cv-tag t2">7+ years · EMEA &amp; the Americas</span>
+          <div className="cv-poster-foot">
+            <p className="cv-hello" key={role ?? "all"}>
+              I <b>{roleInfo ? roleInfo.hello : "help businesses understand, evaluate and successfully adopt complex software"}</b>.
+            </p>
+            <ul className="cv-stats" key={`s-${role}-${ind}`}>
+              {highlights.map(h => <li key={h.id}><b>{h.big}</b><span>{h.label}</span><small>{h.where}</small></li>)}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -166,7 +161,7 @@ export default function InteractiveCV() {
       <section className="wrap cv-intro" aria-label="Summary">
         <div>{SUMMARY.map(p => <p key={p.slice(0, 20)} className="cv-summary">{p}</p>)}</div>
         <div className="cv-intro-side">
-          <p className="cv-now"><i aria-hidden="true" />{NOW}</p>
+          <p className="cv-intro-tag"><i aria-hidden="true" />7+ years · EMEA &amp; the Americas</p>
           <div className="cv-ctas">
             <a className="cv-btn solid" href={`mailto:${site.email}`}>Email me</a>
             <a className="cv-btn" href={site.linkedin}>LinkedIn</a>

@@ -56,15 +56,11 @@ export const EXPLORING: Partial<Record<RoleId, { title: string; text: string; li
     lists: [],
   },
   safety: {
-    title: "What I'm learning",
-    text: "I'm studying AI safety alongside my work. What drives me: AI harms that land first on women and vulnerable people, people not being able to tell what's AI, and African governments adopting AI faster than they can oversee it.",
-    lists: [
-      { label: "Podcasts", items: ["80,000 Hours", "Your Undivided Attention", "Deep View Conversations"] },
-      { label: "Newsletters", items: ["The Deep View", "Import AI", "Transformer"] },
-      { label: "People I follow", items: ["Yoshua Bengio", "Joy Buolamwini", "Abeba Birhane"] },
-      { label: "Research that shaped me", items: ["Gender Shades (Buolamwini and Gebru)"] },
-    ],
+    title: "Always learning",
+    text: "I'm curious about AI and how we make it safe, and I'm learning about it all the time.",
+    lists: [],
   },
+
 };
 
 export const INDUSTRIES: { id: IndustryId; label: string }[] = [
