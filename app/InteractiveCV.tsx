@@ -292,7 +292,7 @@ export default function InteractiveCV() {
         </div>
         <div className="cv-meet">
           {site.introVideoUrl
-            ? <video src={site.introVideoUrl} controls playsInline preload="metadata" poster={site.photoUrl || undefined} />
+            ? <video src={site.introVideoUrl} controls playsInline preload="metadata" poster="/video/meet-amaka.jpg" />
             : <div className="cv-meet-soon"><span className="cv-meet-play" aria-hidden="true"><i className="play" /></span><p>Video coming soon</p></div>}
         </div>
       </section>
